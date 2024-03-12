@@ -1,3 +1,12 @@
-# jobster v2
+# jobster
 
-- test to commit change using vs code tools
+a simple website builded with react . I made it to organise the list of jobs that I have
+applied on them
+
+it is so simple and so organised.
+
+I'm sure all the job hunters will love it
+
+## Try It
+
+[jobster](https://jobster22.netlify.app/landing)

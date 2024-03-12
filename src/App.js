@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import "react-toastify/dist/ReactToastify.css";
+import {
+  LandingPage,
+  LoginPage,
+  StatsPage,
+  AddJobPage,
+  ProtectedRoute,
+  ErrorPage,
+  AllJobsPage,
+  Dashboard,
+  ProfilePage,
+} from "./pages";
+import { Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <Routes>
+        <Route path="/landing" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
         >
-          Learn React
-        </a>
-      </header>
+          <Route index element={<StatsPage />} />
+          <Route path="add-job" element={<AddJobPage />} />
+          <Route path="all-jobs" element={<AllJobsPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+        </Route>
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+      <ToastContainer position="top-center" autoClose={3000} />
     </div>
   );
 }
