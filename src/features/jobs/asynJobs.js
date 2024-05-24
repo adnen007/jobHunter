@@ -13,7 +13,7 @@ export const fetchAllJobs = createAsyncThunk("fetch/jobs", async (payload, thunk
 export const deleteJob = createAsyncThunk("delete/job", async (id, thunkAPI) => {
   try {
     const res = await axios.delete(`/jobs/${id}`);
-    return res.data.msg;
+    return res.data;
   } catch (err) {
     return thunkAPI.rejectWithValue(err.response.data.msg);
   }

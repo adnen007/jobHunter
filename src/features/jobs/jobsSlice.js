@@ -37,7 +37,10 @@ const jobsSlice = createSlice({
         state.is_loading = true;
       })
       .addCase(deleteJob.fulfilled, (state, { payload }) => {
-        state.job_status.success = payload;
+        console.log("this here worked");
+        console.log("the payload is", payload);
+        console.log("the sucecss object", state.job_status.success);
+        state.job_status.success = "Job Deleted";
       })
       .addCase(deleteJob.rejected, (state, { payload }) => {
         state.job_status.err = payload;

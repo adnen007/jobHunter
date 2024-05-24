@@ -7,7 +7,7 @@ import store from "./app/store";
 import { Provider } from "react-redux";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://jobify-prod.herokuapp.com/api/v1/toolkit";
+axios.defaults.baseURL = "https://redux-toolkit-jobster-api-server.onrender.com/api/v1/";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
