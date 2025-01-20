@@ -8,16 +8,10 @@ const initialState = {
   num_of_pages: "",
   job_status: { err: null, success: null },
 };
-
 const jobsSlice = createSlice({
   name: "jobs",
   initialState,
-  reducers: {
-    clear_job_status: (state) => {
-      state.job_status.success = null;
-      state.job_status.err = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllJobs.pending, (state) => {
@@ -36,27 +30,34 @@ const jobsSlice = createSlice({
       .addCase(deleteJob.pending, (state) => {
         state.is_loading = true;
       })
-      .addCase(deleteJob.fulfilled, (state, { payload }) => {
-        console.log("this here worked");
-        console.log("the payload is", payload);
-        console.log("the sucecss object", state.job_status.success);
+      .addCase(deleteJob.fulfilled, (state) => {
         state.job_status.success = "Job Deleted";
       })
       .addCase(deleteJob.rejected, (state, { payload }) => {
         state.job_status.err = payload;
         state.is_loading = false;
       })
+      .addCase(addJob.pending, (state) => {
+        state.is_loading = true;
+      })
       .addCase(addJob.fulfilled, (state) => {
         state.job_status.success = "Job Added";
+        state.is_loading = false;
       })
       .addCase(addJob.rejected, (state, { payload }) => {
         state.job_status.err = payload;
+        state.is_loading = false;
+      })
+      .addCase(editJob.pending, (state) => {
+        state.is_loading = true;
       })
       .addCase(editJob.fulfilled, (state) => {
         state.job_status.success = "Job Edited";
+        state.is_loading = false;
       })
       .addCase(editJob.rejected, (state, { payload }) => {
         state.job_status.err = payload;
+        state.is_loading = false;
       });
   },
 });

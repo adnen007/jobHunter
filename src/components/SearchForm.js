@@ -31,10 +31,10 @@ const SearchForm = ({
           </select>
         </div>
         <div className="row">
-          <label className="lbl" htmlFor="type">
+          <label className="lbl" htmlFor="jobType">
             type
           </label>
-          <select onChange={onformChange} id="type" value={jobType} className="ipt">
+          <select onChange={onformChange} id="jobType" value={jobType} className="ipt">
             <option value="full-time">full-time</option>
             <option value="part-time">part-time</option>
             <option value="remote">remote</option>

@@ -3,7 +3,7 @@ import fetchStats from "./statsAsync";
 
 const initialState = {
   is_loading: false,
-  error: false,
+  error: null,
   data: {
     "defaultStats": {
       "pending": 0,

@@ -3,10 +3,8 @@ import { SearchForm, SingleJob, Pagination, Loading } from "../components";
 import { useEffect, useRef, useState } from "react";
 import { convertToPath } from "../utils/functions";
 import { useDispatch, useSelector } from "react-redux";
-
 import { fetchAllJobs } from "../features/jobs/asynJobs";
-import { jobsActions } from "../features/jobs/jobsSlice";
-import { toast } from "react-toastify";
+
 const AlljobsPage = () => {
   const intialParams = {
     search: "",
@@ -26,34 +24,13 @@ const AlljobsPage = () => {
     const id = e.target.id;
     const value = e.target.value;
 
-    if (id === "type") {
-      setParams({ ...params, jobType: value });
-    } else {
-      setParams({ ...params, [id]: value });
-    }
+    setParams({ ...params, [id]: value });
   };
 
   useEffect(() => {
     const path = convertToPath(params);
     dispatch(fetchAllJobs(path));
   }, [params, dispatch]);
-
-  useEffect(() => {
-    if (jobs.job_status.success) {
-      toast.success("Job Deleted");
-      dispatch(jobsActions.clear_job_status());
-    } else if (jobs.job_status.err) {
-      toast.error(jobs.job_status.err);
-      dispatch(jobsActions.clear_job_status());
-    }
-  }, [jobs.job_status, dispatch]);
-
-  useEffect(() => {
-    if (jobs.job_status.success) {
-      const path = convertToPath(params);
-      dispatch(fetchAllJobs(path));
-    }
-  }, [jobs.job_status.success, dispatch, params]);
 
   const changePage = (pageNumber) => {
     setParams({ ...params, page: pageNumber });

@@ -2,18 +2,19 @@ import styled from "styled-components";
 import { FaLocationArrow } from "react-icons/fa6";
 import { FaCalendarAlt } from "react-icons/fa";
 import { FaSuitcase } from "react-icons/fa";
-import { convertTime } from "../utils/functions";
+import { convertTime, convertToPath } from "../utils/functions";
 import { deleteJob } from "../features/jobs/asynJobs";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 const SingleJob = ({
   el: { company, position, status, jobType, jobLocation, createdAt, _id },
   wrapperRef,
+  params,
 }) => {
   const dispatch = useDispatch();
 
   const onDeleteClick = () => {
-    dispatch(deleteJob(_id));
+    dispatch(deleteJob({ id: _id, path: convertToPath(params) }));
     wrapperRef.current.scrollTo(0, 0);
   };
 

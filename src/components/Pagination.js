@@ -5,40 +5,28 @@ import {
 } from "react-icons/md";
 
 const Pagination = ({ changePage, totalPages: total, current }) => {
-  let pagesArr = [];
+  const pagesArr = [];
   const onNextClick = () => {
-    if (current + 1 <= total) {
-      changePage(current + 1);
-    }
+    if (current < total) changePage(current + 1);
   };
   const onPrevClick = () => {
-    if (current - 1 >= 1) {
-      changePage(current - 1);
-    }
+    if (current > 1) changePage(current - 1);
   };
 
   if (total <= 5) {
+    // Display all pages if total pages is 5 or less
     for (let i = 0; i < total; i++) {
       pagesArr[i] = i + 1;
     }
-  } else if (current <= 3) {
-    pagesArr[0] = 1;
-    pagesArr[1] = 2;
-    pagesArr[2] = 3;
-    pagesArr[3] = "...";
-    pagesArr[4] = total;
-  } else if (current >= 4 && current < total - 2) {
-    pagesArr[0] = 1;
-    pagesArr[1] = "...";
-    pagesArr[2] = current;
-    pagesArr[3] = "...";
-    pagesArr[4] = total;
   } else {
-    pagesArr[0] = 1;
-    pagesArr[1] = "...";
-    pagesArr[2] = total - 2;
-    pagesArr[3] = total - 1;
-    pagesArr[4] = total;
+    // Handling larger total pages with dynamic pagination
+    if (current <= 3) {
+      pagesArr.push(1, 2, 3, "...", total);
+    } else if (current >= total - 2) {
+      pagesArr.push(1, "...", total - 2, total - 1, total);
+    } else {
+      pagesArr.push(1, "...", current, "...", total);
+    }
   }
 
   return (

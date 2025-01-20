@@ -1,22 +1,16 @@
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import LoadingPage from "./LoadingPage";
 import { useSelector } from "react-redux";
-
+import { toast } from "react-toastify";
+import LoginPage from "./LoginPage";
 const ProtectedRoute = ({ children }) => {
   const token = useSelector((state) => {
     return state.user.user_data.token;
   });
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!token) {
-      navigate("/landing");
-    }
-  }, [navigate, token]);
+
   if (token) {
     return children;
   } else {
-    return <LoadingPage />;
+    toast.warn("PLEASE LOGIN FIRST");
+    return <LoginPage />;
   }
 };
 

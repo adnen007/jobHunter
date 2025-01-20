@@ -19,7 +19,7 @@ const Header = ({ toggleSideBar }) => {
     setDropLogout(!dropLogout);
   };
 
-  const onLogutClick = () => {
+  const onLogoutClick = () => {
     Dispatch(userActions.logout());
     navigate("/login");
   };
@@ -39,7 +39,7 @@ const Header = ({ toggleSideBar }) => {
             <p>{userName}</p>
             <IoMdArrowDropdown />
           </div>
-          <div onClick={onLogutClick} className={`logout ${dropLogout ? "active" : ""}`}>
+          <div onClick={onLogoutClick} className={`logout ${dropLogout ? "active" : ""}`}>
             logout
           </div>
         </div>

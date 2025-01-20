@@ -1,17 +1,14 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { addJob, editJob } from "../features/jobs/asynJobs";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { jobsActions } from "../features/jobs/jobsSlice";
 import { toast } from "react-toastify";
 
 const AddJobPage = () => {
-  const jobStatus = useSelector((state) => {
-    return state.jobs.job_status;
+  const is_loading = useSelector((state) => {
+    return state.jobs.is_loading;
   });
-
-  const { state: locationState } = useLocation();
 
   let initialState = {
     position: "",
@@ -21,6 +18,9 @@ const AddJobPage = () => {
     status: "interview",
   };
 
+  const { state: locationState } = useLocation();
+
+  // in edit page case.
   if (locationState) {
     initialState = locationState;
   }
@@ -33,11 +33,7 @@ const AddJobPage = () => {
     const id = e.target.id;
     const value = e.target.value;
 
-    if (id === "type") {
-      setParams({ ...params, jobType: value });
-    } else {
-      setParams({ ...params, [id]: value });
-    }
+    setParams({ ...params, [id]: value });
   };
 
   const onSubmitClick = (e) => {
@@ -45,9 +41,9 @@ const AddJobPage = () => {
 
     const values = Object.values(params);
 
-    if (values.some((el) => el === "")) {
-      toast.warn("pleas fill out all the fields");
-      return null;
+    if (values.includes("")) {
+      toast.warn("Please fill out all fields");
+      return;
     }
 
     if (locationState) {
@@ -66,29 +62,6 @@ const AddJobPage = () => {
       });
     }
   };
-
-  useEffect(() => {
-    if (jobStatus.success) {
-      toast.success(jobStatus.success);
-      dispatch(jobsActions.clear_job_status());
-    } else if (jobStatus.err) {
-      toast.error(jobStatus.err);
-      dispatch(jobsActions.clear_job_status());
-    }
-  }, [jobStatus, dispatch]);
-
-  useEffect(() => {
-    if (locationState) {
-      return;
-    }
-    setParams({
-      position: "",
-      company: "",
-      jobLocation: "",
-      jobType: "full-time",
-      status: "interview",
-    });
-  }, [locationState, setParams]);
 
   const onClearClick = () => {
     setParams({
@@ -157,13 +130,13 @@ const AddJobPage = () => {
             </select>
           </div>
           <div className="row">
-            <label className="lbl" htmlFor="type">
+            <label className="lbl" htmlFor="jobType">
               type
             </label>
             <select
               onChange={onformChange}
               value={params.jobType}
-              id="type"
+              id="jobType"
               className="ipt"
             >
               <option value="full-time">full-time</option>
@@ -177,7 +150,7 @@ const AddJobPage = () => {
               clear
             </button>
             <button onClick={onSubmitClick} className="btn sbumit" type="button">
-              submit
+              {is_loading ? "Loading..." : "submit"}
             </button>
           </div>
         </div>

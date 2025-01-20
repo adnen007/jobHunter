@@ -1,9 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { updateUser } from "../features/user/userAsync";
-import { userActions } from "../features/user/userSlice";
-import { toast } from "react-toastify";
 const ProfilePage = () => {
   const user = useSelector((state) => {
     return state.user;
@@ -24,16 +22,6 @@ const ProfilePage = () => {
     e.preventDefault();
     dispatch(updateUser(params));
   };
-
-  useEffect(() => {
-    if (user.user_status.success) {
-      toast.success("your profile got updated");
-      dispatch(userActions.clear_status());
-    } else if (user.user_status.err) {
-      toast.error(user.user_status.err);
-      dispatch(userActions.clear_status());
-    }
-  }, [user.user_status, dispatch]);
 
   return (
     <Wrappper className="container">

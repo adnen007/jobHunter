@@ -1,4 +1,5 @@
 import "react-toastify/dist/ReactToastify.css";
+
 import {
   LandingPage,
   LoginPage,
@@ -10,6 +11,7 @@ import {
   Dashboard,
   ProfilePage,
 } from "./pages";
+
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 

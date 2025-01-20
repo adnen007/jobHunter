@@ -4,13 +4,16 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, registerUser } from "../features/user/userAsync";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const [formState, setFormState] = useState({ name: "", email: "", password: "" });
-  const user = useSelector((state) => {
-    return state.user;
+
+  const token = useSelector((state) => {
+    return state.user.user_data.token;
+  });
+
+  const isLoading = useSelector((state) => {
+    return state.user.is_loading;
   });
 
   const Dispatch = useDispatch();
@@ -43,15 +46,13 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    if (user.user_data.token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${user.user_data.token}`;
-      localStorage.user_data = JSON.stringify(user.user_data);
+    // don't try get rid to  the conditional rendering it is here to prevent unnecessary navigation during logout.
+    if (token) {
+      // We perform navigation here instead of within the thunk because the navigation logic depends
+      // on the token, which is only available after the thunk finishes and returns the fetched data.
       navigate("/");
-      toast.success(`welcom ${user.user_data.name}`);
-    } else if (user.user_status.err) {
-      toast.error(user.user_status.err);
     }
-  }, [user.user_data, navigate, user.user_status.err]);
+  }, [token, navigate]);
 
   const name = (
     <>
@@ -69,7 +70,7 @@ const LoginPage = () => {
       <div className="content">
         <Logo />
         <form onSubmit={(e) => onSubmit(e)}>
-          <h2>Login</h2>
+          <h2>{showRegister ? "Register" : "Login"}</h2>
           {showRegister ? name : null}
           <label htmlFor="email">email</label>
           <input
@@ -86,13 +87,14 @@ const LoginPage = () => {
             value={formState.password}
           />
           <button className="btn" type="submit">
-            {user.is_loading ? "loading..." : "submit"}
+            {isLoading ? "loading..." : "submit"}
           </button>
           <button onClick={OnDemoClick} className="btn" type="button">
-            {user.is_loading ? "loading..." : "demo app"}
+            {isLoading ? "loading..." : "demo app"}
           </button>
           <p onClick={() => setShowRegister(!showRegister)}>
-            not a member yet? <span>{showRegister ? "login" : "register"}</span>
+            {showRegister ? "Already a member? " : "Not a member yet? "}
+            <span>{showRegister ? "Login" : "Register"}</span>
           </p>
         </form>
       </div>

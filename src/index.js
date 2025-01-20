@@ -7,7 +7,7 @@ import store from "./app/store";
 import { Provider } from "react-redux";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://redux-toolkit-jobster-api-server.onrender.com/api/v1/";
+axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

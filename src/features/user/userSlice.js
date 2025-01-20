@@ -6,7 +6,7 @@ import { getUserFromLocalStorage } from "../../utils/functions";
 let initialState = {
   user_data: getUserFromLocalStorage(),
   is_loading: false,
-  user_status: { err: null, success: null },
+  err: null,
 };
 
 const userSlice = createSlice({
@@ -18,20 +18,14 @@ const userSlice = createSlice({
       return {
         user_data: { name: "", lastName: "", email: "", location: "", token: "" },
         is_loading: false,
-        user_status: { err: null, success: null },
+        err: null,
       };
-    },
-    clear_status: (state) => {
-      state.user_status.success = null;
-      state.user_status.err = null;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
         state.is_loading = true;
-        state.user_status.err = null;
-        state.user_status.success = null;
       })
       .addCase(registerUser.fulfilled, (state, { payload }) => {
         state.is_loading = false;
@@ -39,12 +33,10 @@ const userSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, { payload }) => {
         state.is_loading = false;
-        state.user_status.err = payload;
+        state.err = payload;
       })
       .addCase(loginUser.pending, (state) => {
         state.is_loading = true;
-        state.user_status.err = null;
-        state.user_status.success = null;
       })
       .addCase(loginUser.fulfilled, (state, { payload }) => {
         state.is_loading = false;
@@ -52,21 +44,18 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, { payload }) => {
         state.is_loading = false;
-        state.user_status.err = payload;
+        state.err = payload;
       })
       .addCase(updateUser.pending, (state) => {
         state.is_loading = true;
-        state.user_status.err = null;
-        state.user_status.success = null;
       })
       .addCase(updateUser.fulfilled, (state, { payload }) => {
         state.is_loading = false;
         state.user_data = payload;
-        state.user_status.success = true;
       })
       .addCase(updateUser.rejected, (state, { payload }) => {
         state.is_loading = false;
-        state.user_status.err = payload;
+        state.err = payload;
       });
   },
 });

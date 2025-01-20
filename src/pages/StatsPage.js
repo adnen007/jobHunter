@@ -4,28 +4,24 @@ import { Loading } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import fetchStats from "../features/stats/statsAsync";
 import { useEffect } from "react";
-import { toast } from "react-toastify";
 import ChartsContainer from "../components/ChartsContainer";
 
 const StatsPage = () => {
   const stats = useSelector((state) => {
     return state.stats;
   });
-  const error = stats.error;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (error) {
-      toast.error(error);
-    } else {
-      dispatch(fetchStats());
-    }
-  }, [error, dispatch]);
+    dispatch(fetchStats());
+  }, [dispatch]);
 
   const status = Object.entries(stats.data.defaultStats);
+
   if (stats.is_loading) {
     return <Loading />;
   }
+
   return (
     <Wrapper>
       <div className="container">
