@@ -58,10 +58,11 @@ const Wrapper = styled.section`
     }
   }
   .side_bar {
-    width: 0px;
+    width: 250px;
     height: 100vh;
     overflow: hidden;
     transition: 0.5s;
+    margin-left: -250px;
     nav {
       > svg {
         display: none;
@@ -76,6 +77,8 @@ const Wrapper = styled.section`
   }
   .side_bar.active {
     width: 250px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 0px 0px 0px;
+    margin-left: 0px;
   }
   @media (max-width: 992px) {
     .side_bar {

@@ -34,7 +34,7 @@ export const convertTime = (time) => {
   const month = newTime.slice(5, 7);
   const day = newTime.slice(8, 10);
 
-  return `${months[+month]} ${day}, ${year}`;
+  return `${day} ${months[+month]} , ${year}`;
 };
 
 export const getUserFromLocalStorage = () => {

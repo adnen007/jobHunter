@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import logo from "../images/logo.35bb8e1d9b5745af32ff148cbee51dfa.svg";
+import logo from "../images/theme1.png";
 
 const Logo = () => {
   return (
@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   width: fit-content;
   img {
     display: block;
+    width: 160px;
   }
 `;
 

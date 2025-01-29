@@ -7,16 +7,16 @@ Variables
 :root {
   /* background colors*/
   --background-color-1: #f0f4f8;
+
   --background-color-2: #ffeeee;
   --background-color-3: #fcefc7;
   --background-color-4: #dbeafe;
   --background-color-5: #e0e8f9;
   --background-color-7: #000000b3;
   /* dark shades of the primary color*/
-  --primary-color-d: hsl(217, 95%, 45%);
+  --primary-color-d: #143b8d;
   /* primary/main color */
-  --primary-color: hsl(217, 91%, 60%);
-
+  --primary-color: #2563eb;
   /* text colors */
   --text-color-1: #e9b949;
   --text-color-2: #d66a6a;
@@ -138,6 +138,7 @@ h6 {
 @media (min-width: 1200px) {
   .container {
     max-width: 1140px;
+    /* padding: 0px 10px; */
   }
 }
 /* buttons */
@@ -167,15 +168,7 @@ h6 {
   display: block;
   text-transform: capitalize;
 }
-.ipt {
-  display: block;
-  border: none;
-  background: var(--background-color-1);
-  height: 35px;
-  border-radius: var(--radius);
-  padding-left: 15px;
-  outline: solid 1px #ccd3db;
-}
+
 .title {
   text-align: center;
 }

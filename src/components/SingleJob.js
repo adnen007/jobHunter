@@ -1,11 +1,15 @@
 import styled from "styled-components";
-import { FaLocationArrow } from "react-icons/fa6";
-import { FaCalendarAlt } from "react-icons/fa";
-import { FaSuitcase } from "react-icons/fa";
 import { convertTime, convertToPath } from "../utils/functions";
 import { deleteJob } from "../features/jobs/asynJobs";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { FaSuitcase, FaCalendarAlt } from "react-icons/fa";
+import { FaLocationArrow, FaLocationCrosshairs, FaFaceDizzy } from "react-icons/fa6";
+import { IoMdSettings } from "react-icons/io";
+import { AiFillDelete } from "react-icons/ai";
+import { MdOutlineAccessTimeFilled, MdPending, MdWorkHistory } from "react-icons/md";
+import { BsCalendar2CheckFill } from "react-icons/bs";
+
 const SingleJob = ({
   el: { company, position, status, jobType, jobLocation, createdAt, _id },
   wrapperRef,
@@ -18,10 +22,19 @@ const SingleJob = ({
     wrapperRef.current.scrollTo(0, 0);
   };
 
+  const icon =
+    status === "pending" ? (
+      <MdPending />
+    ) : status === "interview" ? (
+      <MdOutlineAccessTimeFilled />
+    ) : (
+      <FaFaceDizzy />
+    );
+
   return (
     <Wrapper>
       <div className="top">
-        <p className="first_letter">{company[0]} </p>
+        <div className={`icon ${status}`}>{icon} </div>
         <div>
           <h3 className="position">{position}</h3>
           <p className="company">{company}</p>
@@ -29,27 +42,27 @@ const SingleJob = ({
       </div>
       <div className="bottom">
         <div className="location">
-          <FaLocationArrow /> <span>{jobLocation}</span>
+          <FaLocationCrosshairs /> <span>{jobLocation}</span>
         </div>
         <div className="date">
-          <FaCalendarAlt /> <span>{convertTime(createdAt)} </span>
+          <BsCalendar2CheckFill /> <span>{convertTime(createdAt)} </span>
         </div>
         <div className="type">
-          <FaSuitcase />
+          <MdWorkHistory />
           <span>{jobType} </span>
         </div>
-        <div className="status">{status} </div>
+        <div className={`status ${status}`}>{status} </div>
         <div className="buttons">
           <button className="edit btn">
             <Link
               to="/add-job"
               state={{ company, position, status, jobType, jobLocation, _id }}
             >
-              Edit
+              <IoMdSettings />
             </Link>
           </button>
           <button onClick={onDeleteClick} className=" delete btn">
-            delete
+            <AiFillDelete />
           </button>
         </div>
       </div>
@@ -66,17 +79,25 @@ const Wrapper = styled.div`
     display: flex;
     padding: 16px 20px;
     column-gap: 30px;
-    .first_letter {
+    .icon {
       width: 60px;
       height: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: var(--primary-color);
       color: var(--white);
       border-radius: var(--radius);
-      font-size: 24px;
+      font-size: 34px;
       line-height: 42px;
+    }
+    .icon.pending {
+      background-color: var(--pending-color-1);
+    }
+    .icon.declined {
+      background-color: var(--declined-color-1);
+    }
+    .icon.interview {
+      background-color: var(--interview-color-1);
     }
     > div {
       display: flex;
@@ -101,48 +122,66 @@ const Wrapper = styled.div`
     gap: 20px;
     padding: 16px 20px;
     border-top: solid 1px var(--background-color-4);
-    .location,
-    .date,
-    .type {
-      font-size: 16px;
-      line-height: 28px;
-      color: var(--text-color-6);
-      display: flex;
-      align-items: center;
-      svg {
-        color: var(--text-color-8);
-        font-size: 17px;
-        margin-right: 15px;
-      }
-      span {
-        display: block;
-      }
+  }
+  .location,
+  .date,
+  .type {
+    font-size: 16px;
+    line-height: 28px;
+    color: var(--text-color-6);
+    display: flex;
+    align-items: center;
+    svg {
+      color: var(--text-color-8);
+
+      font-size: 21px;
+      margin-right: 15px;
     }
-    .status {
-      background-color: var(--background-color-3);
-      color: var(--text-color-1);
-      width: fit-content;
-      padding: 2px 17px;
-      border-radius: var(--radius);
+    span {
+      display: block;
     }
-    .buttons {
-      display: flex;
-      gap: 20px;
-      button {
-        padding: 6px 15px;
-        text-transform: capitalize;
-        font-size: 16px;
-      }
-      .edit {
-        background-color: #d1e7dd;
-        a {
-          color: #0f5132;
-        }
-      }
-      .delete {
-        color: #842029;
-        background-color: #f8d7da;
-      }
+  }
+  .date svg {
+    font-size: 18px;
+  }
+  .status {
+    color: var(--text-color-1);
+    width: fit-content;
+    padding: 2px 17px;
+    border-radius: var(--radius);
+  }
+  .status.pending {
+    background-color: var(--pending-color-2);
+    color: var(--pending-color-1);
+  }
+  .status.declined {
+    background-color: var(--declined-color-2);
+    color: var(--declined-color-1);
+  }
+  .status.interview {
+    background-color: var(--interview-color-2);
+    color: var(--interview-color-1);
+  }
+  .buttons {
+    display: flex;
+    gap: 20px;
+    button {
+      background-color: rgb(226, 230, 235);
+
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.07);
+      padding: 6px 15px;
+      text-transform: capitalize;
+      font-size: 18px;
+      transition: box-shadow 0.2s ease, transform 0.2s ease; /* Smooth interaction */
+    }
+    button:hover {
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15), 0 3px 5px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+    }
+    button svg {
+      color: rgb(16, 4, 68);
+      display: block;
+      font-size: 18px;
     }
   }
 `;

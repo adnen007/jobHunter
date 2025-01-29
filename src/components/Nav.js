@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { ImCross } from "react-icons/im";
 import { Link } from "react-router-dom";
 import { links } from "../utils/constants";
+
 import Logo from "./Logo";
 
 const Nav = ({ closeDropdown }) => {
@@ -30,6 +31,7 @@ const Nav = ({ closeDropdown }) => {
 
 const Wrapper = styled.nav`
   background-color: var(--white);
+
   width: 100%;
   height: 100%;
   border-radius: var(--radius);
@@ -76,9 +78,18 @@ const Wrapper = styled.nav`
       }
     }
   }
-  li:hover a svg,
-  li.active a svg {
+  li:hover a,
+  li.active a {
     color: var(--primary-color);
+  }
+
+  .logo img {
+    width: 140px;
+  }
+  @media (max-width: 992px) {
+    .logo img {
+      width: 190px;
+    }
   }
 `;
 export default Nav;

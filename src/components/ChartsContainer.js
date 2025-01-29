@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import BarChart from "./BarChart";
+import ScatterChart from "./ScatterChart";
 import AreaChart from "./AreaChart";
 import { useSelector } from "react-redux";
 const ChartsContainer = () => {
-  const [barChart, setBarChart] = useState(true);
+  const [scatterChart, setScatterChart] = useState(false);
   const { monthlyApplications: data } = useSelector((state) => state.stats.data);
   return (
     <Wrapper>
-      <h4>Monthly Applications</h4>
-      <button type="button" onClick={() => setBarChart(!barChart)}>
-        {barChart ? "Area Chart" : "Bar Chart"}
+      <h4>Chasing Opportunities: 6-Month Snapshot</h4>
+      <button type="button" onClick={() => setScatterChart(!scatterChart)}>
+        {scatterChart ? "Area Chart" : "Scatter Chart"}
       </button>
-      {barChart ? <BarChart data={data} /> : <AreaChart data={data} />}
+      {scatterChart ? <ScatterChart data={data} /> : <AreaChart data={data} />}
     </Wrapper>
   );
 };

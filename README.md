@@ -1,4 +1,4 @@
-# jobster
+# jobHunter
 
 a simple website builded with react . I made it to organise the list of jobs that I have
 applied on them
@@ -9,4 +9,4 @@ I'm sure all the job hunters will love it
 
 ## Try It
 
-[jobster](https://jobster22.netlify.app/landing)
+[jobHunter](https://jobster22.netlify.app/landing)

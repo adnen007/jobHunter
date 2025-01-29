@@ -1,4 +1,5 @@
-import { RiMenu2Fill } from "react-icons/ri";
+import { RiMenuUnfoldFill } from "react-icons/ri";
+
 import styled from "styled-components";
 import Logo from "./Logo";
 import { FaUserCircle } from "react-icons/fa";
@@ -28,7 +29,7 @@ const Header = ({ toggleSideBar }) => {
     <Wrapper>
       <div className="container">
         <div className="menu" onClick={toggleSideBar}>
-          <RiMenu2Fill />
+          <RiMenuUnfoldFill />
         </div>
         <div className="title">
           <h2>Dashboard</h2> <Logo />
@@ -50,6 +51,7 @@ const Header = ({ toggleSideBar }) => {
 
 const Wrapper = styled.header`
   background-color: var(--white);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 0px 0px;
   .container {
     display: flex;
     justify-content: space-between;
@@ -76,7 +78,7 @@ const Wrapper = styled.header`
 
     @media (min-width: 992px) {
       h2 {
-        display: block;
+        /* display: block; */
       }
     }
     .menu {

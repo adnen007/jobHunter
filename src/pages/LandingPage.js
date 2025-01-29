@@ -12,15 +12,23 @@ const LandingPage = () => {
         <div className="content page-no-h">
           <div className="info">
             <h1>
-              job <span>tracking</span> app
+              <span>J</span>ob <span>H</span>unt <span>T</span>racker
             </h1>
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid molestiae
-              distinctio sint nostrum, totam illum modi similique ipsam reiciendis
-              temporibus doloribus! Aspernatur, veritatis.
-            </p>
+            <ul class="checklist">
+              <li>
+                <span class="checkmark">✔</span> Organize your job search in one place.
+              </li>
+              <li>
+                <span class="checkmark">✔</span> Track your applications, effortlessly.
+              </li>
+
+              <li>
+                <span class="checkmark">✔</span> Stay ahead with smart reminders.
+              </li>
+            </ul>
             <Link className="btn" to="/login">
-              Login/Register
+              <span>Get Started</span>
+              <div class="arrow">➔</div>
             </Link>
           </div>
           <div className="image">
@@ -39,41 +47,107 @@ const Wrapper = styled.div`
     align-items: center;
   }
   .content {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
     padding-bottom: 100px;
-    div {
-      width: 100%;
-    }
+    gap: 20px;
   }
+
   h1 {
-    font-size: 49px;
+    font-size: 48.5px;
+    text-align: start;
     font-family: "roboto condensed", sans-serif;
     line-height: 63px;
     margin-top: 10px;
+    text-transform: lowercase;
     color: var(--text-color-6);
     span {
       color: var(--primary-color);
+      text-transform: uppercase;
     }
   }
-  p {
-    color: var(--text-color-7);
-    margin-top: 30px;
+  @media (min-width: 992px) {
+    h1 {
+      font-size: 56px;
+    }
   }
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 20px;
+  }
+
+  .checklist li {
+    font-size: 16px;
+    letter-spacing: 1.3px;
+    color: #475569;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .checkmark {
+    font-size: 24px;
+    color: var(--primary-color);
+    margin-right: 10px;
+  }
+
   .btn {
-    font-size: 20px;
-    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
     text-transform: capitalize;
+    width: fit-content;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background: var(--primary-color);
+    border: none;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5);
   }
-  .image {
-    img {
-      max-width: 500px;
-      width: 100%;
+
+  .btn .arrow {
+    display: inline-block;
+    font-size: 18px;
+    margin-left: 10px;
+    animation: slideArrow 1s infinite;
+  }
+
+  @keyframes slideArrow {
+    0% {
+      transform: translateX(0);
     }
+    50% {
+      transform: translateX(8px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  .image img {
+    display: block;
+    max-width: 100%;
   }
   @media (max-width: 992px) {
     .image {
       display: none;
+    }
+    .content {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @keyframes arrow {
+    0% {
+      transform: translateX(0px);
+    }
+    100% {
+      transform: translateX(50px);
     }
   }
 `;

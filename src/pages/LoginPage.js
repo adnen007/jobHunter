@@ -70,7 +70,7 @@ const LoginPage = () => {
       <div className="content">
         <Logo />
         <form onSubmit={(e) => onSubmit(e)}>
-          <h2>{showRegister ? "Register" : "Login"}</h2>
+          <h2>{showRegister ? "Sign Up" : "Sign In"}</h2>
           {showRegister ? name : null}
           <label htmlFor="email">email</label>
           <input
@@ -87,14 +87,14 @@ const LoginPage = () => {
             value={formState.password}
           />
           <button className="btn" type="submit">
-            {isLoading ? "loading..." : "submit"}
+            {isLoading ? "loading..." : showRegister ? "Sign In" : "Sign Up"}
           </button>
           <button onClick={OnDemoClick} className="btn" type="button">
-            {isLoading ? "loading..." : "demo app"}
+            {isLoading ? "loading..." : "View Demo"}
           </button>
           <p onClick={() => setShowRegister(!showRegister)}>
-            {showRegister ? "Already a member? " : "Not a member yet? "}
-            <span>{showRegister ? "Login" : "Register"}</span>
+            {showRegister ? "Already a member? " : "New around here?  "}
+            <span>{showRegister ? "Sign In" : "Sign Up"}</span>
           </p>
         </form>
       </div>
@@ -113,7 +113,6 @@ const Wrapper = styled.div`
   .content {
     background-color: var(--white);
     box-shadow: var(--dark-shadow);
-    border-top: solid 4px var(--primary-color-d);
     padding: 35px 40px;
   }
   h2 {
@@ -159,14 +158,19 @@ const Wrapper = styled.div`
     font-size: 16px;
   }
   form button:last-of-type {
-    background: var(--background-color-4);
-    color: var(--primary-color);
+    /* background: var(--background-color-4);
+    color: var(--primary-color); */
+    background: white;
+    color: black;
+    border: solid 2px;
+    font-weight: bold;
   }
 
   form > p {
     text-align: center;
     span {
       color: var(--primary-color);
+      cursor: pointer;
     }
   }
 `;

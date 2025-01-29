@@ -6,7 +6,7 @@ const SearchForm = ({
 }) => {
   return (
     <Wrapper>
-      <h2>search form</h2>
+      {/* <h2>search form</h2> */}
       <div>
         <div className="row">
           <label className="lbl" htmlFor="search">
@@ -18,6 +18,7 @@ const SearchForm = ({
             value={search}
             className="ipt"
             type="text"
+            placeholder="Position"
           />
         </div>
         <div className="row">
@@ -66,6 +67,7 @@ const Wrapper = styled.form`
   background-color: var(--white);
   border-radius: var(--radius);
   padding: 30px 35px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   h2 {
     font-size: 25px;
     font-weight: 400;
@@ -78,30 +80,41 @@ const Wrapper = styled.form`
     column-gap: 20px;
     row-gap: 10px;
     align-items: end;
-    margin-top: 20px;
+    /* margin-top: 20px; */
 
     .row {
       display: flex;
       flex-direction: column;
+
+      .ipt {
+        display: block;
+        border: none;
+        background: var(--background-color-1);
+        height: 35px;
+        border-radius: var(--radius);
+        padding-left: 15px;
+        outline: solid 1px #ccd3db;
+      }
+
       .btn {
         height: 35px;
         text-transform: capitalize;
         font-size: 16px;
         line-height: 18px;
-        color: #840229;
-        background-color: #f8d7da;
+        color: white;
+        background-color: rgb(126, 126, 126);
         margin-top: 22px;
       }
     }
   }
   @media (min-width: 992px) {
     > div {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(5, 1fr);
     }
   }
   @media (min-width: 1200px) {
     > div {
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: repeat(5, 1fr);
     }
   }
 `;

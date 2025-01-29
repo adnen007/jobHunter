@@ -26,7 +26,7 @@ const StatsPage = () => {
     <Wrapper>
       <div className="container">
         <div className="status">
-          {status.map((el, i) => {
+          {status.sort().map((el, i) => {
             return <Status key={i} el={el} />;
           })}
         </div>

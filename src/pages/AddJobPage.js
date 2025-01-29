@@ -79,10 +79,8 @@ const AddJobPage = () => {
         <h2>{locationState ? "edit job" : "add job"}</h2>
         <div>
           <div className="row">
-            <label className="lbl" htmlFor="position">
-              position
-            </label>
             <input
+              placeholder="position"
               onChange={onformChange}
               value={params.position}
               id="position"
@@ -91,10 +89,8 @@ const AddJobPage = () => {
             />
           </div>
           <div className="row">
-            <label className="lbl" htmlFor="company">
-              company
-            </label>
             <input
+              placeholder="company"
               onChange={onformChange}
               value={params.company}
               id="company"
@@ -103,10 +99,8 @@ const AddJobPage = () => {
             />
           </div>
           <div className="row">
-            <label className="lbl" htmlFor="jobLocation">
-              job location
-            </label>
             <input
+              placeholder="location"
               onChange={onformChange}
               value={params.jobLocation}
               id="jobLocation"
@@ -115,9 +109,6 @@ const AddJobPage = () => {
             />
           </div>
           <div className="row">
-            <label className="lbl" htmlFor="status">
-              status
-            </label>
             <select
               onChange={onformChange}
               value={params.status}
@@ -130,9 +121,6 @@ const AddJobPage = () => {
             </select>
           </div>
           <div className="row">
-            <label className="lbl" htmlFor="jobType">
-              type
-            </label>
             <select
               onChange={onformChange}
               value={params.jobType}
@@ -163,58 +151,83 @@ const Wrappper = styled.section`
   padding-bottom: 30px;
   max-height: calc(100vh - 96px);
   overflow-y: auto;
+
   form {
     background-color: var(--white);
     border-radius: var(--radius);
     padding: 50px 30px;
-    h2 {
-      font-size: 31px;
-      font-weight: 400;
-      line-height: 41px;
-      text-align: left;
-      color: var(--text-color-6);
-    }
-    > div {
-      display: grid;
-      column-gap: 20px;
-      row-gap: 10px;
-      align-items: end;
-      margin-top: 20px;
+  }
 
-      .row {
-        display: flex;
-        flex-direction: column;
-        .btn {
-          height: 35px;
-          flex-grow: 1;
-          text-transform: capitalize;
-          font-size: 16px;
-          line-height: 18px;
-        }
-        .btn.clear {
-          background-color: var(--text-color-4);
-        }
+  form h2 {
+    font-size: 31px;
+    font-weight: 400;
+    line-height: 41px;
+    text-align: left;
+    color: var(--text-color-6);
+  }
+  form > div {
+    display: grid;
+    column-gap: 20px;
+    row-gap: 40px;
+    align-items: end;
+    margin-top: 20px;
+  }
 
-        @media (max-width: 992px) {
-          .btn {
-            margin-top: 22px;
-          }
-        }
-      }
-      .row:last-of-type {
-        flex-direction: row;
-        gap: 20px;
-      }
+  .row {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .row:last-of-type {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .ipt {
+    display: block;
+    color: rgb(0, 0, 0);
+    background-color: white;
+    border-radius: 0px;
+    border: none;
+    outline: none;
+    border-bottom: solid 1px #474c51;
+    height: 35px;
+    padding-bottom: 5px;
+    font-size: 16px;
+  }
+  .ipt::placeholder {
+    color: black;
+    text-transform: capitalize;
+  }
+  .ipt:focus::placeholder {
+    color: gray;
+  }
+
+  .row .btn {
+    height: 35px;
+    flex-grow: 1;
+    text-transform: capitalize;
+    font-size: 16px;
+    line-height: 18px;
+  }
+  .row .btn.clear {
+    background-color: var(--text-color-4);
+  }
+  @media (max-width: 992px) {
+    .row .btn {
+      margin-top: 22px;
     }
-    @media (min-width: 992px) {
-      > div {
-        grid-template-columns: 1fr 1fr;
-      }
+  }
+
+  @media (min-width: 992px) {
+    form > div {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 60px;
     }
-    @media (min-width: 1200px) {
-      > div {
-        grid-template-columns: 1fr 1fr 1fr;
-      }
+  }
+  @media (min-width: 1200px) {
+    form > div {
+      grid-template-columns: 1fr 1fr 1fr;
     }
   }
 `;

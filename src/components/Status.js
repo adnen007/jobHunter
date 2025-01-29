@@ -1,9 +1,7 @@
 import styled from "styled-components";
-import {
-  FaSuitcase as Pending,
-  FaCalendarCheck as Interview,
-  FaBug as Declined,
-} from "react-icons/fa";
+
+import { MdOutlineAccessTimeFilled, MdPending } from "react-icons/md";
+import { FaFaceDizzy } from "react-icons/fa6";
 
 const Status = ({ el: [key, value] }) => {
   return (
@@ -11,17 +9,17 @@ const Status = ({ el: [key, value] }) => {
       <div className={key}>
         <div>
           <div className="number">{value}</div>
-          <div className="icon">
-            {key === "pending" ? (
-              <Pending />
-            ) : key === "interview" ? (
-              <Interview />
-            ) : (
-              <Declined />
-            )}
-          </div>
+          <p> {key} applications</p>
         </div>
-        <p> {key} applications</p>
+        <div className="icon">
+          {key === "pending" ? (
+            <MdPending />
+          ) : key === "interview" ? (
+            <MdOutlineAccessTimeFilled />
+          ) : (
+            <FaFaceDizzy />
+          )}
+        </div>
       </div>
     </Wrapper>
   );
@@ -33,63 +31,66 @@ const Wrapper = styled.div`
     border-radius: var(--radius);
     padding: 35px 30px;
     box-shadow: var(--light-shadow);
-    > div {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 5px 0;
 
-      .number {
-        font-size: 50px;
-        line-height: 88px;
-        font-weight: 700;
-      }
-      .icon {
-        display: flex;
-        align-items: center;
-        border-radius: var(--radius);
-        padding: 18px 20px;
-        svg {
-          display: block;
-          font-size: 30px;
-        }
+    /* border-left: solid 5px; */
+    display: flex;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    .number {
+      font-size: 30px;
+      line-height: 30px;
+      font-weight: 700;
+    }
+    .icon {
+      display: flex;
+      align-items: center;
+      /* border-radius: var(--radius); */
+      border-left: solid 2px;
+      font-size: 33px;
+      width: 60px;
+      height: 60px;
+
+      justify-content: center;
+      svg {
+        display: block;
       }
     }
+
     p {
-      font-size: 20px;
+      font-size: 17px;
       line-height: 26px;
-      margin-top: 20px;
+      margin-top: 4px;
       text-transform: capitalize;
       letter-spacing: 1px;
+      white-space: nowrap;
     }
   }
   .pending {
-    border-bottom: solid 5px var(--pending-color-1);
+    border-color: var(--pending-color-1);
     .number {
       color: var(--pending-color-1);
     }
     .icon {
-      background-color: var(--pending-color-2);
       color: var(--pending-color-1);
     }
   }
   .interview {
-    border-bottom: solid 5px var(--interview-color-1);
+    border-color: var(--interview-color-1);
     .number {
       color: var(--interview-color-1);
     }
     .icon {
-      background-color: var(--interview-color-2);
       color: var(--interview-color-1);
     }
   }
   .declined {
-    border-bottom: solid 5px var(--declined-color-1);
+    border-color: var(--declined-color-1);
     .number {
       color: var(--declined-color-1);
     }
     .icon {
-      background-color: var(--declined-color-2);
       color: var(--declined-color-1);
     }
   }

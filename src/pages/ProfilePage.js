@@ -29,51 +29,43 @@ const ProfilePage = () => {
         <h2>Profile</h2>
         <div>
           <div className="row">
-            <label className="lbl" htmlFor="name">
-              name
-            </label>
             <input
               onChange={onformChange}
               id="name"
               value={params.name}
               className="ipt"
               type="text"
+              placeholder="First Name"
             />
           </div>
           <div className="row">
-            <label className="lbl" htmlFor="lastName">
-              last name
-            </label>
             <input
               onChange={onformChange}
               value={params.lastName}
               id="lastName"
               className="ipt"
               type="text"
+              placeholder="Last Name"
             />
           </div>
           <div className="row">
-            <label className="lbl" htmlFor="email">
-              email
-            </label>
             <input
               onChange={onformChange}
               value={params.email}
               id="email"
               className="ipt"
               type="email"
+              placeholder="Email"
             />
           </div>
           <div className="row">
-            <label className="lbl" htmlFor="location">
-              location
-            </label>
             <input
               onChange={onformChange}
               value={params.location}
               id="location"
               className="ipt"
               type="text"
+              placeholder="Location"
             />
           </div>
           <div className="row">
@@ -95,41 +87,65 @@ const Wrappper = styled.section`
     background-color: var(--white);
     border-radius: var(--radius);
     padding: 50px 30px;
-    h2 {
-      font-size: 31px;
-      font-weight: 400;
-      line-height: 41px;
-      text-align: left;
-      color: var(--text-color-6);
-    }
-    > div {
-      display: grid;
-      column-gap: 20px;
-      row-gap: 10px;
-      align-items: end;
-      margin-top: 20px;
+  }
+  form h2 {
+    font-size: 31px;
+    font-weight: 400;
+    line-height: 41px;
+    text-align: left;
+    color: var(--text-color-6);
+  }
 
-      .row {
-        display: flex;
-        flex-direction: column;
-        .btn {
-          height: 35px;
-          text-transform: capitalize;
-          font-size: 16px;
-          line-height: 18px;
-          margin-top: 22px;
-        }
-      }
+  form > div {
+    display: grid;
+    column-gap: 20px;
+    row-gap: 40px;
+    align-items: end;
+    margin-top: 20px;
+  }
+  .row {
+    display: flex;
+    flex-direction: column;
+  }
+  .row .ipt {
+    display: block;
+    color: rgb(0, 0, 0);
+    background-color: white;
+    border-radius: 0px;
+    border: none;
+    outline: none;
+    border-bottom: solid 1px #474c51;
+    height: 35px;
+    padding-bottom: 5px;
+    font-size: 16px;
+  }
+  .row .ipt::placeholder {
+    color: black;
+    text-transform: capitalize;
+  }
+  .row .ipt:focus::placeholder {
+    color: gray;
+  }
+  .row .btn {
+    height: 35px;
+    text-transform: capitalize;
+    font-size: 16px;
+    line-height: 18px;
+    margin-top: 22px;
+  }
+
+  @media (min-width: 992px) {
+    form > div {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 60px;
     }
-    @media (min-width: 992px) {
-      > div {
-        grid-template-columns: 1fr 1fr;
-      }
+    .row .btn {
+      margin-top: 0px;
     }
-    @media (min-width: 1200px) {
-      > div {
-        grid-template-columns: 1fr 1fr 1fr;
-      }
+  }
+  @media (min-width: 1200px) {
+    form > div {
+      grid-template-columns: 1fr 1fr 1fr;
     }
   }
 `;
