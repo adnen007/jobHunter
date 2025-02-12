@@ -62,6 +62,7 @@ const LoginPage = () => {
         onChange={(e) => onInputChange(e)}
         type="text"
         value={formState.name}
+        id="name"
       />
     </>
   );
@@ -78,6 +79,7 @@ const LoginPage = () => {
             onChange={(e) => onInputChange(e)}
             type="email"
             value={formState.email}
+            id="email"
           />
           <label htmlFor="password">password</label>
           <input
@@ -85,11 +87,12 @@ const LoginPage = () => {
             onChange={(e) => onInputChange(e)}
             type="password"
             value={formState.password}
+            id="password"
           />
           <button className="btn" type="submit">
             {isLoading ? "loading..." : showRegister ? "Sign In" : "Sign Up"}
           </button>
-          <button onClick={OnDemoClick} className="btn" type="button">
+          <button onClick={OnDemoClick} className="btn demo" type="button">
             {isLoading ? "loading..." : "View Demo"}
           </button>
           <p onClick={() => setShowRegister(!showRegister)}>
@@ -157,13 +160,13 @@ const Wrapper = styled.div`
     margin-bottom: 20px;
     font-size: 16px;
   }
-  form button:last-of-type {
-    /* background: var(--background-color-4);
-    color: var(--primary-color); */
-    background: white;
-    color: black;
-    border: solid 2px;
-    font-weight: bold;
+  .demo {
+    background: var(--background-color-4);
+    color: var(--primary-color);
+  }
+  .demo:hover {
+    background-color: var(--primary-color-d);
+    color: white;
   }
 
   form > p {

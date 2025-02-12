@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import logo from "../images/theme1.png";
+import logo from "../images/theme2.png";
 
 const Logo = () => {
   return (

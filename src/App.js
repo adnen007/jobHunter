@@ -30,8 +30,8 @@ function App() {
           }
         >
           <Route index element={<StatsPage />} />
-          <Route path="add-job" element={<AddJobPage />} />
-          <Route path="all-jobs" element={<AllJobsPage />} />
+          <Route path="new-job" element={<AddJobPage />} />
+          <Route path="job-list" element={<AllJobsPage />} />
           <Route path="profile" element={<ProfilePage />} />
         </Route>
         <Route path="*" element={<ErrorPage />} />

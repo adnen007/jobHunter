@@ -51,7 +51,7 @@ const AlljobsPage = () => {
           onformChange={onformChange}
         />
         <div className="jobs_list">
-          <b>{jobs.total_jobs} jobs found</b>
+          <b>{jobs.total_jobs} Positions Listed</b>
 
           {jobs.is_loading ? (
             <Loading />

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Logo from "../components/Logo";
 import { Link } from "react-router-dom";
-import Hero from "../images/hero-img.svg";
+import Hero from "../images/hero-theme2.svg";
 const LandingPage = () => {
   return (
     <Wrapper>

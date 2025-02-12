@@ -1,13 +1,3 @@
-// import {
-//   BarChart,
-//   Bar,
-//   XAxis,
-//   YAxis,
-//   CartesianGrid,
-//   Tooltip,
-//   ResponsiveContainer,
-// } from "recharts";
-
 import {
   ResponsiveContainer,
   ScatterChart,
@@ -26,7 +16,7 @@ const ScatterChartComponent = ({ data }) => {
         <XAxis dataKey="date" name="Date" />
         <YAxis dataKey="count" name="Count" allowDecimals={false} />
         <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-        <Scatter data={data} fill="#2563eb" />
+        <Scatter data={data} fill="#2cb1bc" />
       </ScatterChart>
     </ResponsiveContainer>
   );

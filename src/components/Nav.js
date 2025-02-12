@@ -49,7 +49,7 @@ const Wrapper = styled.nav`
       display: block;
     }
   }
-  @media (min-width: 992px) {
+  @media (min-width: 993px) {
     .close {
       display: none;
     }

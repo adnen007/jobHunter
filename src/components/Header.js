@@ -1,9 +1,10 @@
 import { RiMenuUnfoldFill } from "react-icons/ri";
+import { RiLogoutCircleLine } from "react-icons/ri";
+import { RiShutDownLine } from "react-icons/ri";
 
 import styled from "styled-components";
 import Logo from "./Logo";
-import { FaUserCircle } from "react-icons/fa";
-import { IoMdArrowDropdown } from "react-icons/io";
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,13 +36,15 @@ const Header = ({ toggleSideBar }) => {
           <h2>Dashboard</h2> <Logo />
         </div>
         <div className="user" onClick={toggleLogout}>
-          <div className="name">
-            <FaUserCircle />
-            <p>{userName}</p>
-            <IoMdArrowDropdown />
-          </div>
           <div onClick={onLogoutClick} className={`logout ${dropLogout ? "active" : ""}`}>
-            logout
+            <RiLogoutCircleLine />
+          </div>
+          <div className="name">
+            <p>{userName}</p>
+
+            <div className="shutdown">
+              <RiShutDownLine />
+            </div>
           </div>
         </div>
       </div>
@@ -52,6 +55,7 @@ const Header = ({ toggleSideBar }) => {
 const Wrapper = styled.header`
   background-color: var(--white);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 0px 0px;
+
   .container {
     display: flex;
     justify-content: space-between;
@@ -108,13 +112,22 @@ const Wrapper = styled.header`
     justify-content: space-between;
     align-items: center;
     font-size: 16px;
-    padding: 0 10px;
+    padding-left: 10px;
     gap: 10px;
-
+    position: relative;
     svg {
       display: block;
       font-size: 16px;
     }
+  }
+
+  .shutdown {
+    height: 25px;
+    width: 40px;
+    border-left: solid white 1.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   @media (max-width: 375px) {
     .user .name {
@@ -122,21 +135,25 @@ const Wrapper = styled.header`
     }
   }
   .user .logout {
-    width: 100%;
+    width: 40px;
     height: 40px;
-    background: var(--background-color-4);
-    color: var(--primary-color);
+
+    font-size: 18px;
+    background: var(--primary-color);
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: var(--radius);
     position: absolute;
-    top: calc(100% + 8px);
-    left: 0px;
-    display: none;
+    top: 0;
+    right: 0px;
+    display: flex;
+    transition: top 0.5s;
   }
   .user .logout.active {
     display: flex;
+    top: calc(100% + 4px);
   }
 `;
 

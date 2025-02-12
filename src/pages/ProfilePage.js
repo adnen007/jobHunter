@@ -70,7 +70,7 @@ const ProfilePage = () => {
           </div>
           <div className="row">
             <button onClick={onsubmit} className="btn" type="submit">
-              save changes
+              Confirm
             </button>
           </div>
         </div>

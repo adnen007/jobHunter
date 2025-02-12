@@ -55,12 +55,13 @@ const SingleJob = ({
         <div className="buttons">
           <button className="edit btn">
             <Link
-              to="/add-job"
+              to="/new-job"
               state={{ company, position, status, jobType, jobLocation, _id }}
             >
               <IoMdSettings />
             </Link>
           </button>
+
           <button onClick={onDeleteClick} className=" delete btn">
             <AiFillDelete />
           </button>
@@ -74,7 +75,7 @@ const Wrapper = styled.div`
   background-color: var(--white);
   box-shadow: var(--light-shadow);
   border-radius: var(--radius);
-
+  min-width: 0;
   .top {
     display: flex;
     padding: 16px 20px;
@@ -89,6 +90,7 @@ const Wrapper = styled.div`
       border-radius: var(--radius);
       font-size: 34px;
       line-height: 42px;
+      flex-shrink: 0;
     }
     .icon.pending {
       background-color: var(--pending-color-1);
@@ -103,11 +105,15 @@ const Wrapper = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: center;
+      overflow: hidden;
       h3 {
         font-size: 20px;
         line-height: 26px;
         font-weight: 400;
         text-align: left;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
       .company {
         font-size: 16px;
@@ -167,12 +173,15 @@ const Wrapper = styled.div`
     gap: 20px;
     button {
       background-color: rgb(226, 230, 235);
-
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.07);
-      padding: 6px 15px;
-      text-transform: capitalize;
+      padding: 0px;
+      height: 36px;
+      width: 56px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-size: 18px;
-      transition: box-shadow 0.2s ease, transform 0.2s ease; /* Smooth interaction */
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
     }
     button:hover {
       box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15), 0 3px 5px rgba(0, 0, 0, 0.1);
@@ -183,6 +192,13 @@ const Wrapper = styled.div`
       display: block;
       font-size: 18px;
     }
+  }
+  a {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
   }
 `;
 

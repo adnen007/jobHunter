@@ -6,17 +6,26 @@ Variables
 
 :root {
   /* background colors*/
-  --background-color-1: #f0f4f8;
+  /* --background-color-1: #f0f4f8;  */
+  --background-color-1: #f8fafc;
 
   --background-color-2: #ffeeee;
   --background-color-3: #fcefc7;
-  --background-color-4: #dbeafe;
+
+  /* --background-color-4: #dbeafe;  */
+  --background-color-4: #2cb0bc31;
+
   --background-color-5: #e0e8f9;
   --background-color-7: #000000b3;
-  /* dark shades of the primary color*/
-  --primary-color-d: #143b8d;
+
   /* primary/main color */
-  --primary-color: #2563eb;
+  /* --primary-color: #2563eb; */
+  --primary-color: #2cb1bc;
+
+  /* dark shades of the primary color*/
+  /* --primary-color-d: #143b8d; */
+  --primary-color-d: #027781;
+
   /* text colors */
   --text-color-1: #e9b949;
   --text-color-2: #d66a6a;
@@ -29,7 +38,10 @@ Variables
   /* status colors */
   --pending-color-1: #e9b949;
   --pending-color-2: #fcefc7;
-  --interview-color-1: #3b82f6;
+
+  /* --interview-color-1: #3b82f6;  */
+  --interview-color-1: #2cb1bc;
+
   --interview-color-2: #dbeafe;
   --declined-color-1: #d66a6a;
   --declined-color-2: #ffeeee;

@@ -52,7 +52,7 @@ const Wrapper = styled.section`
     opacity: 1;
     visibility: visible;
   }
-  @media (min-width: 992px) {
+  @media (min-width: 993px) {
     .dropdown {
       display: none;
     }
@@ -61,7 +61,7 @@ const Wrapper = styled.section`
     width: 250px;
     height: 100vh;
     overflow: hidden;
-    transition: 0.5s;
+    transition: margin 0.2s linear;
     margin-left: -250px;
     nav {
       > svg {
@@ -76,7 +76,6 @@ const Wrapper = styled.section`
     }
   }
   .side_bar.active {
-    width: 250px;
     box-shadow: rgba(0, 0, 0, 0.1) 1px 0px 0px 0px;
     margin-left: 0px;
   }

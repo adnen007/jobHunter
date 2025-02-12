@@ -76,7 +76,7 @@ const AddJobPage = () => {
   return (
     <Wrappper className="container">
       <form>
-        <h2>{locationState ? "edit job" : "add job"}</h2>
+        <h2>{locationState ? "edit job" : "new job"}</h2>
         <div>
           <div className="row">
             <input
@@ -138,7 +138,7 @@ const AddJobPage = () => {
               clear
             </button>
             <button onClick={onSubmitClick} className="btn sbumit" type="button">
-              {is_loading ? "Loading..." : "submit"}
+              {is_loading ? "Loading..." : locationState ? "Edit" : "Add"}
             </button>
           </div>
         </div>
@@ -211,7 +211,7 @@ const Wrappper = styled.section`
     line-height: 18px;
   }
   .row .btn.clear {
-    background-color: var(--text-color-4);
+    background-color: rgb(149, 150, 151);
   }
   @media (max-width: 992px) {
     .row .btn {

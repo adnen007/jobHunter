@@ -55,7 +55,7 @@ const SearchForm = ({
         </div>
         <div className="row">
           <button onClick={clearFilters} className="btn" type="button">
-            clear filters
+            clear
           </button>
         </div>
       </div>
@@ -102,7 +102,7 @@ const Wrapper = styled.form`
         font-size: 16px;
         line-height: 18px;
         color: white;
-        background-color: rgb(126, 126, 126);
+        background-color: var(--primary-color);
         margin-top: 22px;
       }
     }
