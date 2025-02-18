@@ -90,7 +90,7 @@ const LoginPage = () => {
             id="password"
           />
           <button className="btn" type="submit">
-            {isLoading ? "loading..." : showRegister ? "Sign In" : "Sign Up"}
+            {isLoading ? "loading..." : showRegister ? "Sign Up" : "Sign In"}
           </button>
           <button onClick={OnDemoClick} className="btn demo" type="button">
             {isLoading ? "loading..." : "View Demo"}
