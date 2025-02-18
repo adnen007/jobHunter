@@ -5,7 +5,7 @@ applied on them
 
 it is so simple and so organised.
 
-I'm sure all the job hunters will love it
+I'm sure all the job hunters will love it :) .
 
 ## Try It
 
