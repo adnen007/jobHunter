@@ -14,27 +14,10 @@ export const convertToPath = (obj) => {
   return arr.join("&");
 };
 
-export const convertTime = (time) => {
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  let newTime = time.slice(0, 10);
-  const year = newTime.slice(0, 4);
-  const month = newTime.slice(5, 7);
-  const day = newTime.slice(8, 10);
-
-  return `${day} ${months[+month]} , ${year}`;
+export const convertSecondsToDate = (createAt) => {
+  const milliseconds = createAt.seconds * 1000 + createAt.nanoseconds / 1e6;
+  const date = new Date(milliseconds);
+  return date.toDateString();
 };
 
 export const getUserFromLocalStorage = () => {

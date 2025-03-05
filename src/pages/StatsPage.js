@@ -16,17 +16,16 @@ const StatsPage = () => {
     dispatch(fetchStats());
   }, [dispatch]);
 
-  const status = Object.entries(stats.data.defaultStats);
-
-  if (stats.is_loading) {
+  if (stats.isLoading) {
     return <Loading />;
   }
+  const status = Object.entries(stats.status);
 
   return (
     <Wrapper>
       <div className="container">
         <div className="status">
-          {status.sort().map((el, i) => {
+          {status.map((el, i) => {
             return <Status key={i} el={el} />;
           })}
         </div>

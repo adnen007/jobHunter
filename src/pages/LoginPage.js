@@ -1,31 +1,43 @@
-import styled from "styled-components";
-import Logo from "../components/Logo";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, registerUser } from "../features/user/userAsync";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import Logo from "../components/Logo";
 
 const LoginPage = () => {
-  const [formState, setFormState] = useState({ name: "", email: "", password: "" });
-
-  const token = useSelector((state) => {
-    return state.user.user_data.token;
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    password: "",
   });
 
+  const navigate = useNavigate();
+
   const isLoading = useSelector((state) => {
-    return state.user.is_loading;
+    return state.user.isLoading;
+  });
+
+  const userId = useSelector((state) => {
+    return state.user.userInfo.userId;
   });
 
   const Dispatch = useDispatch();
-  const navigate = useNavigate();
   const [showRegister, setShowRegister] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
+
     if (showRegister) {
-      Dispatch(registerUser({ ...formState }));
+      Dispatch(registerUser({ ...formState, navigate }));
     } else {
-      Dispatch(loginUser({ email: formState.email, password: formState.password }));
+      Dispatch(
+        loginUser({
+          email: formState.email,
+          password: formState.password,
+          navigate,
+        })
+      );
     }
   };
 
@@ -46,24 +58,15 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    // don't try get rid to  the conditional rendering it is here to prevent unnecessary navigation during logout.
-    if (token) {
-      // We perform navigation here instead of within the thunk because the navigation logic depends
-      // on the token, which is only available after the thunk finishes and returns the fetched data.
+    if (userId) {
       navigate("/");
     }
-  }, [token, navigate]);
+  }, [userId, navigate]);
 
   const name = (
     <>
       <label htmlFor="name">name</label>
-      <input
-        name="name"
-        onChange={(e) => onInputChange(e)}
-        type="text"
-        value={formState.name}
-        id="name"
-      />
+      <input name="name" onChange={(e) => onInputChange(e)} type="text" value={formState.name} id="name" />
     </>
   );
   return (
@@ -74,13 +77,7 @@ const LoginPage = () => {
           <h2>{showRegister ? "Sign Up" : "Sign In"}</h2>
           {showRegister ? name : null}
           <label htmlFor="email">email</label>
-          <input
-            name="email"
-            onChange={(e) => onInputChange(e)}
-            type="email"
-            value={formState.email}
-            id="email"
-          />
+          <input name="email" onChange={(e) => onInputChange(e)} type="email" value={formState.email} id="email" />
           <label htmlFor="password">password</label>
           <input
             name="password"

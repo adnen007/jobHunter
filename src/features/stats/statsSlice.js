@@ -2,16 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import fetchStats from "./statsAsync";
 
 const initialState = {
-  is_loading: false,
+  isLoading: true,
   error: null,
-  data: {
-    "defaultStats": {
-      "pending": 0,
-      "interview": 0,
-      "declined": 0,
-    },
-    "monthlyApplications": [],
-  },
+  status: {},
+  history: [],
 };
 
 const statsSlice = createSlice({
@@ -20,15 +14,16 @@ const statsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchStats.pending, (state) => {
-        state.is_loading = true;
+        state.isLoading = true;
       })
-      .addCase(fetchStats.fulfilled, (state, action) => {
-        state.is_loading = false;
-        state.data = action.payload;
+      .addCase(fetchStats.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.status = payload.status;
+        state.history = payload.history;
       })
-      .addCase(fetchStats.rejected, (state, action) => {
-        state.is_loading = false;
-        state.error = action.payload;
+      .addCase(fetchStats.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
       });
   },
 });

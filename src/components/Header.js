@@ -6,24 +6,29 @@ import styled from "styled-components";
 import Logo from "./Logo";
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { userActions } from "../features/user/userSlice";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../features/user/userAsync";
+
 const Header = ({ toggleSideBar }) => {
+  const navigate = useNavigate();
+
   const userName = useSelector((state) => {
-    return state.user.user_data.name;
+    return state.user.userInfo.name;
+  });
+
+  const loading = useSelector((state) => {
+    return state.user.isLoading;
   });
 
   const [dropLogout, setDropLogout] = useState(false);
-  const navigate = useNavigate();
   const Dispatch = useDispatch();
   const toggleLogout = () => {
     setDropLogout(!dropLogout);
   };
 
   const onLogoutClick = () => {
-    Dispatch(userActions.logout());
-    navigate("/login");
+    Dispatch(logout({ navigate }));
   };
 
   return (
@@ -40,7 +45,7 @@ const Header = ({ toggleSideBar }) => {
             <RiLogoutCircleLine />
           </div>
           <div className="name">
-            <p>{userName}</p>
+            <p>{loading ? "loading..." : userName}</p>
 
             <div className="shutdown">
               <RiShutDownLine />

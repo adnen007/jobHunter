@@ -1,15 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { updateUser } from "../features/user/userAsync";
+
 const ProfilePage = () => {
-  const user = useSelector((state) => {
-    return state.user;
+  const userInfo = useSelector((state) => {
+    return state.user.userInfo;
+  });
+  const isLoading = useSelector((state) => {
+    return state.user.isLoading;
   });
 
   const dispatch = useDispatch();
 
-  const [params, setParams] = useState(user.user_data);
+  const initialState = { name: "", lastName: "", email: "", userId: "", location: "" };
+
+  const [params, setParams] = useState(initialState);
 
   const onformChange = (e) => {
     const id = e.target.id;
@@ -22,6 +28,10 @@ const ProfilePage = () => {
     e.preventDefault();
     dispatch(updateUser(params));
   };
+
+  useEffect(() => {
+    setParams(userInfo);
+  }, [userInfo]);
 
   return (
     <Wrappper className="container">
@@ -56,6 +66,7 @@ const ProfilePage = () => {
               className="ipt"
               type="email"
               placeholder="Email"
+              readOnly
             />
           </div>
           <div className="row">
@@ -70,7 +81,7 @@ const ProfilePage = () => {
           </div>
           <div className="row">
             <button onClick={onsubmit} className="btn" type="submit">
-              Confirm
+              {isLoading ? "loading..." : "Confirm"}
             </button>
           </div>
         </div>
@@ -125,6 +136,10 @@ const Wrappper = styled.section`
   }
   .row .ipt:focus::placeholder {
     color: gray;
+  }
+  .row .ipt#email {
+    color: rgb(116, 117, 119);
+    cursor: not-allowed;
   }
   .row .btn {
     height: 35px;

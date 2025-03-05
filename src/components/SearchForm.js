@@ -25,7 +25,13 @@ const SearchForm = ({
           <label className="lbl" htmlFor="status">
             status
           </label>
-          <select onChange={onformChange} id="status" value={status} className="ipt">
+          <select
+            onChange={onformChange}
+            id="status"
+            value={status}
+            className="ipt"
+          >
+            <option value="all">all</option>
             <option value="interview">interview</option>
             <option value="declined">declined</option>
             <option value="pending">pending</option>
@@ -35,7 +41,13 @@ const SearchForm = ({
           <label className="lbl" htmlFor="jobType">
             type
           </label>
-          <select onChange={onformChange} id="jobType" value={jobType} className="ipt">
+          <select
+            onChange={onformChange}
+            id="jobType"
+            value={jobType}
+            className="ipt"
+          >
+            <option value="all">all</option>
             <option value="full-time">full-time</option>
             <option value="part-time">part-time</option>
             <option value="remote">remote</option>
@@ -46,7 +58,12 @@ const SearchForm = ({
           <label className="lbl" htmlFor="sort">
             sort
           </label>
-          <select onChange={onformChange} id="sort" value={sort} className="ipt">
+          <select
+            onChange={onformChange}
+            id="sort"
+            value={sort}
+            className="ipt"
+          >
             <option value="latest">latest</option>
             <option value="oldest">oldest</option>
             <option value="a-z">a-z</option>
@@ -67,7 +84,8 @@ const Wrapper = styled.form`
   background-color: var(--white);
   border-radius: var(--radius);
   padding: 30px 35px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
   h2 {
     font-size: 25px;
     font-weight: 400;

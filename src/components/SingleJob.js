@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { convertTime, convertToPath } from "../utils/functions";
-import { deleteJob } from "../features/jobs/asynJobs";
+import { convertSecondsToDate } from "../utils/functions";
+import { deleteJob } from "../features/jobs/jobsAsync";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { FaLocationCrosshairs, FaFaceDizzy } from "react-icons/fa6";
@@ -9,26 +9,16 @@ import { AiFillDelete } from "react-icons/ai";
 import { MdOutlineAccessTimeFilled, MdPending, MdWorkHistory } from "react-icons/md";
 import { BsCalendar2CheckFill } from "react-icons/bs";
 
-const SingleJob = ({
-  el: { company, position, status, jobType, jobLocation, createdAt, _id },
-  wrapperRef,
-  params,
-}) => {
+const SingleJob = ({ el: { company, position, status, jobType, jobLocation, createAt, id }, wrapperRef, params }) => {
   const dispatch = useDispatch();
 
   const onDeleteClick = () => {
-    dispatch(deleteJob({ id: _id, path: convertToPath(params) }));
+    dispatch(deleteJob({ id, params }));
     wrapperRef.current.scrollTo(0, 0);
   };
 
   const icon =
-    status === "pending" ? (
-      <MdPending />
-    ) : status === "interview" ? (
-      <MdOutlineAccessTimeFilled />
-    ) : (
-      <FaFaceDizzy />
-    );
+    status === "pending" ? <MdPending /> : status === "interview" ? <MdOutlineAccessTimeFilled /> : <FaFaceDizzy />;
 
   return (
     <Wrapper>
@@ -44,7 +34,8 @@ const SingleJob = ({
           <FaLocationCrosshairs /> <span>{jobLocation}</span>
         </div>
         <div className="date">
-          <BsCalendar2CheckFill /> <span>{convertTime(createdAt)} </span>
+          <BsCalendar2CheckFill />
+          <span>{convertSecondsToDate(createAt)} </span>
         </div>
         <div className="type">
           <MdWorkHistory />
@@ -53,10 +44,7 @@ const SingleJob = ({
         <div className={`status ${status}`}>{status} </div>
         <div className="buttons">
           <button className="edit btn">
-            <Link
-              to="/new-job"
-              state={{ company, position, status, jobType, jobLocation, _id }}
-            >
+            <Link to="/new-job" state={{ company, position, status, jobType, jobLocation, id }}>
               <IoMdSettings />
             </Link>
           </button>

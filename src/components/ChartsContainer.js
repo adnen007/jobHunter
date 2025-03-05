@@ -6,14 +6,15 @@ import AreaChart from "./AreaChart";
 import { useSelector } from "react-redux";
 const ChartsContainer = () => {
   const [scatterChart, setScatterChart] = useState(false);
-  const { monthlyApplications: data } = useSelector((state) => state.stats.data);
+  const history = useSelector((state) => state.stats.history);
+
   return (
     <Wrapper>
       <h4>Chasing Opportunities: 6-Month Snapshot</h4>
       <button type="button" onClick={() => setScatterChart(!scatterChart)}>
         {scatterChart ? "Area Chart" : "Scatter Chart"}
       </button>
-      {scatterChart ? <ScatterChart data={data} /> : <AreaChart data={data} />}
+      {scatterChart ? <ScatterChart data={history} /> : <AreaChart data={history} />}
     </Wrapper>
   );
 };

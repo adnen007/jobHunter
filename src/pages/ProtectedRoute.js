@@ -1,17 +1,30 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import LoginPage from "./LoginPage";
+
+import LoadingPage from "./LoadingPage";
+
 const ProtectedRoute = ({ children }) => {
-  const token = useSelector((state) => {
-    return state.user.user_data.token;
+  const isAuthenticated = useSelector((state) => {
+    return state.user.isAuthenticated;
   });
 
-  if (token) {
-    return children;
-  } else {
-    toast.warn("PLEASE LOGIN FIRST");
-    return <LoginPage />;
+  useEffect(() => {
+    if (isAuthenticated === false) {
+      toast.warn("PLEASE LGOIN FIRST");
+    }
+  }, [isAuthenticated]);
+
+  if (isAuthenticated === "loading") {
+    return <LoadingPage />;
   }
+
+  if (isAuthenticated) {
+    return children;
+  }
+
+  return <Navigate to="login" />;
 };
 
 export default ProtectedRoute;

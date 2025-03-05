@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import { SearchForm, SingleJob, Pagination, Loading } from "../components";
 import { useEffect, useRef, useState } from "react";
-import { convertToPath } from "../utils/functions";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllJobs } from "../features/jobs/asynJobs";
+import { fetchAllJobs } from "../features/jobs/jobsAsync";
 
 const AlljobsPage = () => {
   const intialParams = {
@@ -11,10 +10,11 @@ const AlljobsPage = () => {
     status: "all",
     jobType: "all",
     sort: "latest",
-    page: "1",
   };
 
   const [params, setParams] = useState(intialParams);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const jobs = useSelector((state) => {
     return state.jobs;
   });
@@ -28,13 +28,8 @@ const AlljobsPage = () => {
   };
 
   useEffect(() => {
-    const path = convertToPath(params);
-    dispatch(fetchAllJobs(path));
+    dispatch(fetchAllJobs(params));
   }, [params, dispatch]);
-
-  const changePage = (pageNumber) => {
-    setParams({ ...params, page: pageNumber });
-  };
 
   const clearFilters = () => {
     setParams(intialParams);
@@ -45,38 +40,24 @@ const AlljobsPage = () => {
   return (
     <Wrapper ref={wrapperRef}>
       <div className="container">
-        <SearchForm
-          params={params}
-          clearFilters={clearFilters}
-          onformChange={onformChange}
-        />
+        <SearchForm params={params} clearFilters={clearFilters} onformChange={onformChange} />
         <div className="jobs_list">
-          <b>{jobs.total_jobs} Positions Listed</b>
+          <b>{jobs.totalJobs} Positions Listed</b>
 
-          {jobs.is_loading ? (
+          {jobs.isLoading ? (
             <Loading />
-          ) : jobs.total_jobs === 0 ? (
+          ) : jobs.totalJobs === 0 ? (
             <h2>No Job To Display !</h2>
           ) : (
             <div className="list">
-              {jobs.jobs_list.map((el) => {
-                return (
-                  <SingleJob
-                    key={el._id}
-                    el={el}
-                    params={params}
-                    wrapperRef={wrapperRef}
-                  />
-                );
+              {jobs.jobList.map((el) => {
+                return <SingleJob key={el.id} el={el} params={params} wrapperRef={wrapperRef} />;
               })}
             </div>
           )}
         </div>
-        <Pagination
-          changePage={changePage}
-          totalPages={jobs.num_of_pages}
-          current={params.page}
-        />
+
+        <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} params={params} />
       </div>
     </Wrapper>
   );
@@ -102,6 +83,12 @@ const Wrapper = styled.section`
     @media (min-width: 992px) {
       .list {
         grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .list {
+        grid-template-columns: 1fr 1fr 1fr;
       }
     }
   }

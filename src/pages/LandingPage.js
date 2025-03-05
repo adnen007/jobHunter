@@ -14,21 +14,21 @@ const LandingPage = () => {
             <h1>
               <span>J</span>ob <span>H</span>unt <span>T</span>racker
             </h1>
-            <ul class="checklist">
+            <ul className="checklist">
               <li>
-                <span class="checkmark">✔</span> Organize your job search in one place.
+                <span className="checkmark">✔</span> Organize your job search in one place.
               </li>
               <li>
-                <span class="checkmark">✔</span> Track your applications, effortlessly.
+                <span className="checkmark">✔</span> Track your applications, effortlessly.
               </li>
 
               <li>
-                <span class="checkmark">✔</span> Stay ahead with smart reminders.
+                <span className="checkmark">✔</span> Stay ahead with smart reminders.
               </li>
             </ul>
             <Link className="btn" to="/login">
               <span>Get Started</span>
-              <div class="arrow">➔</div>
+              <div className="arrow">➔</div>
             </Link>
           </div>
           <div className="image">

@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { addJob, editJob } from "../features/jobs/asynJobs";
+import { addJob, editJob } from "../features/jobs/jobsAsync";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const AddJobPage = () => {
-  const is_loading = useSelector((state) => {
-    return state.jobs.is_loading;
+  const isLoading = useSelector((state) => {
+    return state.jobs.isLoading;
   });
 
   let initialState = {
@@ -20,7 +20,6 @@ const AddJobPage = () => {
 
   const { state: locationState } = useLocation();
 
-  // in edit page case.
   if (locationState) {
     initialState = locationState;
   }
@@ -47,10 +46,7 @@ const AddJobPage = () => {
     }
 
     if (locationState) {
-      const id = params._id;
-      const payload = { ...params };
-      delete payload._id;
-      dispatch(editJob({ id, payload }));
+      dispatch(editJob({ ...params }));
     } else {
       dispatch(addJob(params));
       setParams({
@@ -109,24 +105,14 @@ const AddJobPage = () => {
             />
           </div>
           <div className="row">
-            <select
-              onChange={onformChange}
-              value={params.status}
-              id="status"
-              className="ipt"
-            >
+            <select onChange={onformChange} value={params.status} id="status" className="ipt">
               <option value="interview">interview</option>
               <option value="declined">declined</option>
               <option value="pending">pending</option>
             </select>
           </div>
           <div className="row">
-            <select
-              onChange={onformChange}
-              value={params.jobType}
-              id="jobType"
-              className="ipt"
-            >
+            <select onChange={onformChange} value={params.jobType} id="jobType" className="ipt">
               <option value="full-time">full-time</option>
               <option value="part-time">part-time</option>
               <option value="remote">remote</option>
@@ -134,11 +120,15 @@ const AddJobPage = () => {
             </select>
           </div>
           <div className="row">
-            <button onClick={onClearClick} className="btn clear" type="button">
-              clear
-            </button>
+            {!locationState ? (
+              <button onClick={onClearClick} className="btn clear" type="button">
+                clear
+              </button>
+            ) : (
+              false
+            )}
             <button onClick={onSubmitClick} className="btn sbumit" type="button">
-              {is_loading ? "Loading..." : locationState ? "Edit" : "Add"}
+              {isLoading ? "Loading..." : locationState ? "Edit" : "Add"}
             </button>
           </div>
         </div>

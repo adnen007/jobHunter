@@ -12,13 +12,7 @@ const Status = ({ el: [key, value] }) => {
           <p> {key} applications</p>
         </div>
         <div className="icon">
-          {key === "pending" ? (
-            <MdPending />
-          ) : key === "interview" ? (
-            <MdOutlineAccessTimeFilled />
-          ) : (
-            <FaFaceDizzy />
-          )}
+          {key === "pending" ? <MdPending /> : key === "interview" ? <MdOutlineAccessTimeFilled /> : <FaFaceDizzy />}
         </div>
       </div>
     </Wrapper>

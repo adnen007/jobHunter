@@ -1,88 +1,46 @@
+import React from "react";
 import styled from "styled-components";
-import {
-  MdOutlineKeyboardDoubleArrowRight,
-  MdOutlineKeyboardDoubleArrowLeft,
-} from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllJobs } from "../features/jobs/jobsAsync";
 
-const Pagination = ({ changePage, totalPages: total, current }) => {
-  const pagesArr = [];
-  const onNextClick = () => {
-    if (current < total) changePage(current + 1);
-  };
-  const onPrevClick = () => {
-    if (current > 1) changePage(current - 1);
-  };
+const Pagination = ({ params, currentPage, setCurrentPage }) => {
+  const dispatch = useDispatch();
 
-  if (total <= 5) {
-    // Display all pages if total pages is 5 or less
-    for (let i = 0; i < total; i++) {
-      pagesArr[i] = i + 1;
-    }
-  } else {
-    // Handling larger total pages with dynamic pagination
-    if (current <= 3) {
-      pagesArr.push(1, 2, 3, "...", total);
-    } else if (current >= total - 2) {
-      pagesArr.push(1, "...", total - 2, total - 1, total);
-    } else {
-      pagesArr.push(1, "...", current, "...", total);
-    }
-  }
+  const totalPages = useSelector((state) => {
+    return state.jobs.totalPages;
+  });
+
+  const onPrev = () => {
+    setCurrentPage(currentPage - 1);
+    dispatch(fetchAllJobs({ ...params, pageMovement: "prev" }));
+  };
+  const onNext = () => {
+    setCurrentPage(currentPage + 1);
+    dispatch(fetchAllJobs({ ...params, pageMovement: "next" }));
+  };
 
   return (
-    <Wrapper className="pagination">
-      <div onClick={onPrevClick} className="prev">
-        <MdOutlineKeyboardDoubleArrowLeft /> <span>Prev</span>
-      </div>
-      <div className="pages">
-        {pagesArr.map((el, i) => {
-          return (
-            <div
-              key={i}
-              onClick={() => (el !== "..." ? changePage(el) : "")}
-              className={el === current ? "current" : ""}
-            >
-              {el}
-            </div>
-          );
-        })}
-      </div>
-      <div onClick={onNextClick} className="next">
-        <span>Next</span> <MdOutlineKeyboardDoubleArrowRight />
-      </div>
+    <Wrapper>
+      <button className="prev" onClick={onPrev} disabled={currentPage === 1}>
+        <span className="arrowIcon">&lt;</span> Prev
+      </button>
+      <span className="pageInfo">
+        {currentPage} / {totalPages}
+      </span>
+      <button className="next" onClick={onNext} disabled={currentPage === totalPages}>
+        Next <span className="arrowIcon">&gt;</span>
+      </button>
     </Wrapper>
   );
 };
-
 const Wrapper = styled.div`
   display: flex;
-  row-gap: 10px;
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-  .pages {
-    display: flex;
-    border-radius: var(--radius);
-    > div {
-      background-color: var(--interview-color-2);
-      color: var(--primary-color);
-      font-size: 20px;
-      line-height: 23px;
-      font-weight: 700;
-      width: 60px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    > div.current {
-      background-color: var(--primary-color);
-      color: var(--white);
-      border-radius: var(--radius);
-    }
-  }
-  .next,
-  .prev {
+  align-items: center;
+  justify-content: center;
+  margin-top: 70px;
+
+  .prev,
+  .next {
     background-color: var(--white);
     color: var(--primary-color);
     display: flex;
@@ -93,14 +51,30 @@ const Wrapper = styled.div`
     height: 40px;
     border-radius: var(--radius);
     width: fit-content;
-    svg {
-      font-size: 20px;
-      display: block;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
     }
+
     span {
       display: block;
     }
   }
-`;
 
+  .pageInfo {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 10px;
+    color: var(--primary-color);
+  }
+
+  .arrowIcon {
+    font-size: 20px;
+    display: block;
+  }
+`;
 export default Pagination;

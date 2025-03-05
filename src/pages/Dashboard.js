@@ -1,10 +1,13 @@
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { getUserInfo } from "../features/user/userAsync";
 import { Outlet } from "react-router-dom";
-import { Header, Nav } from "../components/index";
 import styled from "styled-components";
-import { useState } from "react";
+import { Header, Nav } from "../components/index";
 
 const Dashboard = () => {
   const [showSideBar, setShowSideBar] = useState(false);
+  const dispatch = useDispatch();
 
   const toggleSideBar = () => {
     setShowSideBar(!showSideBar);
@@ -13,6 +16,10 @@ const Dashboard = () => {
   const closeDropdown = () => {
     setShowSideBar(false);
   };
+
+  useEffect(() => {
+    dispatch(getUserInfo());
+  }, [dispatch]);
 
   return (
     <Wrapper>
