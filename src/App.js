@@ -40,7 +40,7 @@ function App() {
     <div className="app">
       <BrowserRouter>
         <Routes>
-          <Route path="/landing" element={<LandingPage />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route
             path="/"
@@ -50,7 +50,7 @@ function App() {
               </ProtectedRoute>
             }
           >
-            <Route index element={<StatsPage />} />
+            <Route path="Analytics" element={<StatsPage />} />
             <Route path="new-job" element={<AddJobPage />} />
             <Route path="job-list" element={<AllJobsPage />} />
             <Route path="profile" element={<ProfilePage />} />

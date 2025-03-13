@@ -51,7 +51,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (userId) {
-      navigate("/");
+      navigate("/analytics");
     }
   }, [userId, navigate]);
 
