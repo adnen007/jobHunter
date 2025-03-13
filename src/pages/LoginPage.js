@@ -29,32 +29,24 @@ const LoginPage = () => {
     e.preventDefault();
 
     if (showRegister) {
-      Dispatch(registerUser({ ...formState, navigate }));
+      Dispatch(registerUser({ ...formState }));
     } else {
       Dispatch(
         loginUser({
           email: formState.email,
           password: formState.password,
-          navigate,
         })
       );
     }
   };
 
   const OnDemoClick = () => {
-    Dispatch(loginUser({ email: "testUser@test.com", password: "secret" }));
+    Dispatch(loginUser({ email: "adnen2@gmail.com", password: "000000" }));
   };
 
   const onInputChange = (e) => {
-    if (e.target.name === "name") {
-      setFormState({ ...formState, name: e.target.value });
-    }
-    if (e.target.name === "email") {
-      setFormState({ ...formState, email: e.target.value });
-    }
-    if (e.target.name === "password") {
-      setFormState({ ...formState, password: e.target.value });
-    }
+    const { name, value } = e.target;
+    setFormState({ ...formState, [name]: value });
   };
 
   useEffect(() => {
@@ -107,13 +99,24 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   padding: 50px 20px;
+  height: 100vh;
+
+  @media (max-width: 576px) {
+    background-color: var(--white);
+    padding: 0px;
+  }
+
   .logo {
     margin: auto;
   }
   .content {
     background-color: var(--white);
-    box-shadow: var(--dark-shadow);
     padding: 35px 40px;
+  }
+  @media (min-width: 576px) {
+    .content {
+      box-shadow: var(--dark-shadow);
+    }
   }
   h2 {
     margin-top: 15px;

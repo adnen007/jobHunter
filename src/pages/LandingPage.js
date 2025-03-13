@@ -9,7 +9,7 @@ const LandingPage = () => {
         <header>
           <Logo />
         </header>
-        <div className="content page-no-h">
+        <div className="content ">
           <div className="info">
             <h1>
               <span>J</span>ob <span>H</span>unt <span>T</span>racker
@@ -52,6 +52,7 @@ const Wrapper = styled.div`
     align-items: center;
     padding-bottom: 100px;
     gap: 20px;
+    height: calc(100vh - 100px);
   }
 
   h1 {

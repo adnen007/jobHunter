@@ -7,10 +7,11 @@ import { useEffect } from "react";
 import ChartsContainer from "../components/ChartsContainer";
 
 const StatsPage = () => {
+  const dispatch = useDispatch();
+
   const stats = useSelector((state) => {
     return state.stats;
   });
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchStats());
@@ -38,7 +39,8 @@ const StatsPage = () => {
 const Wrapper = styled.section`
   max-height: calc(100vh - 96px);
   overflow-y: auto;
-  padding: 30px 0;
+  padding-top: 40px;
+  padding-bottom: 80px;
   .status {
     display: grid;
     gap: 30px;
@@ -50,7 +52,7 @@ const Wrapper = styled.section`
   }
   @media (min-width: 1200px) {
     .status {
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
   }
 `;

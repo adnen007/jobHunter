@@ -18,9 +18,7 @@ const ProfilePage = () => {
   const [params, setParams] = useState(initialState);
 
   const onformChange = (e) => {
-    const id = e.target.id;
-    const value = e.target.value;
-
+    const { id, value } = e.target;
     setParams({ ...params, [id]: value });
   };
 
@@ -94,10 +92,12 @@ const Wrappper = styled.section`
   padding-bottom: 30px;
   max-height: calc(100vh - 96px);
   overflow-y: auto;
+
   form {
     background-color: var(--white);
     border-radius: var(--radius);
     padding: 50px 30px;
+    box-shadow: var(--light-shadow);
   }
   form h2 {
     font-size: 31px;

@@ -13,6 +13,7 @@ import {
   doc,
   startAfter,
   endBefore,
+  startAt,
   updateDoc,
   setDoc,
   getCountFromServer,
@@ -57,6 +58,9 @@ const buildPagination = (pageMovement, pageSize, last, first) => {
   } else if (pageMovement === "prev") {
     pagination.push(limitToLast(pageSize));
     pagination.push(endBefore(first));
+  } else if (pageMovement === "deletion") {
+    pagination.push(limit(pageSize));
+    pagination.push(startAt(first));
   } else {
     pagination.push(limit(pageSize));
   }
@@ -88,10 +92,13 @@ export const fetchAllJobs = createAsyncThunk("fetch/jobs", async (payload, thunk
 
     const countSnapShot = await getCountFromServer(query(jobsRef, ...filters));
     const totalJobs = countSnapShot.data().count;
-    const totalPages = Math.ceil(totalJobs / pageSize);
 
-    last = res.docs[pageSize - 1];
-    first = res.docs[0];
+    const totalPages = totalJobs === 0 ? 1 : Math.ceil(totalJobs / pageSize);
+
+    if (res.docs.length) {
+      last = res.docs[res.docs.length - 1];
+      first = res.docs[0];
+    }
 
     return { totalJobs, jobList, totalPages };
   } catch (err) {
@@ -104,11 +111,11 @@ export const deleteJob = createAsyncThunk("delete/job", async ({ id, params }, t
   try {
     const jobRef = doc(db, "users", auth.currentUser.uid, "jobList", id);
     await deleteDoc(jobRef);
-
     const historyRef = doc(db, "users", auth.currentUser.uid, "jobStats", "jobHistory");
     await updateDoc(historyRef, { [jobRef.id]: deleteField() });
 
-    thunkAPI.dispatch(fetchAllJobs(params));
+    thunkAPI.dispatch(fetchAllJobs({ ...params, pageMovement: "deletion" }));
+
     toast.success("Job Deleted");
     return null;
   } catch (err) {
@@ -127,10 +134,18 @@ export const addJob = createAsyncThunk("add/job", async (payload, thunkAPI) => {
       id: jobRef.id,
     });
 
+    /*  All Jobs In One Document
+      Instead of storing each job as a separate document in a collection,  
+      consider storing them as an array of objects within a single document.  
+      This approach reduces Firestore read operations, improving performance.  
+      A single Firestore document can store up to 1MB of data, allowing approximately 2000 job objects.
+    */
+
     const historyRef = doc(db, "users", auth.currentUser.uid, "jobStats", "jobHistory");
     await setDoc(historyRef, { [jobRef.id]: serverTimestamp() }, { merge: true });
 
     toast.success("Job added");
+
     return null;
   } catch (err) {
     toast.error(err.message);
@@ -141,7 +156,6 @@ export const addJob = createAsyncThunk("add/job", async (payload, thunkAPI) => {
 export const editJob = createAsyncThunk("edit/job", async (params, thunkAPI) => {
   try {
     const jobRef = doc(db, "users", auth.currentUser.uid, "jobList", params.id);
-
     const { position, company, jobType, jobLocation, status } = params;
 
     await updateDoc(jobRef, { position, company, jobType, jobLocation, status });
@@ -152,32 +166,3 @@ export const editJob = createAsyncThunk("edit/job", async (params, thunkAPI) => 
     return thunkAPI.rejectWithValue(err.message);
   }
 });
-
-/**
- * 🔥 How Firestore Ensures Unique IDs Without Checking for Duplicates
- *
- * Firestore generates a new document ID WITHOUT checking existing ones.
- * It relies on a highly unique random generation algorithm to prevent duplicates.
- *
- * ✅ Firestore's random ID system:
- * - Uses a massive ID space: 1.3 septillion (1,352,078,983,202,202,750,000) possible IDs.
- * - The probability of two documents having the same ID is almost 0
- *   (about 0.0000000000000000000000001%).
- * - It includes the current timestamp in the ID generation, making collisions even less likely.
- * - This ensures uniqueness with 99.999999999999999999999999999% certainty.
- * - No one has ever reported a duplicate Firestore ID in real-world use.
- *
- * 🚀 Why Firestore doesn't check for duplicates:
- * - Checking every existing ID would slow down performance.
- * - Since the ID space is so huge, Firestore can trust randomness instead of verifying each one.
- * - The system is optimized for speed and efficiency.
- *
- * 🔒 Want 100% guaranteed unique IDs?
- * You can create your own custom ID by combining the user's UID and a timestamp:
- */
-//const customId = `${auth.currentUser.uid}_${Date.now()}`; // Always unique
-
-/**
- * ✅ Firestore usually handles uniqueness just fine, but if you have special cases,
- *    you can use a custom ID.
- */

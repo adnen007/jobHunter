@@ -23,7 +23,7 @@ const Wrapper = styled.div`
   > div {
     background-color: var(--white);
     border-radius: var(--radius);
-    padding: 35px 30px;
+    padding: 35px 15px;
     box-shadow: var(--light-shadow);
 
     /* border-left: solid 5px; */
@@ -31,6 +31,10 @@ const Wrapper = styled.div`
     justify-content: space-between;
 
     gap: 10px;
+
+    @media (min-width: 576px) {
+      padding: 35px 30px;
+    }
 
     .number {
       font-size: 30px;

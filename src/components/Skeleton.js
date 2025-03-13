@@ -1,28 +1,15 @@
 import styled from "styled-components";
-import { convertSecondsToDate } from "../utils/functions";
-import { deleteJob } from "../features/jobs/jobsAsync";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { FaLocationCrosshairs, FaFaceDizzy } from "react-icons/fa6";
-import { IoMdSettings } from "react-icons/io";
-import { AiFillDelete } from "react-icons/ai";
-import { MdOutlineAccessTimeFilled, MdPending, MdWorkHistory } from "react-icons/md";
+
+import { FaLocationCrosshairs } from "react-icons/fa6";
+import { MdWorkHistory } from "react-icons/md";
 import { BsCalendar2CheckFill } from "react-icons/bs";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-const SingleJob = ({ el: { company, position, status, jobType, jobLocation, createAt, id }, params }) => {
-  const dispatch = useDispatch();
-
-  const onDeleteClick = () => {
-    dispatch(deleteJob({ id, params }));
-  };
-
-  const icon =
-    status === "pending" ? <MdPending /> : status === "interview" ? <MdOutlineAccessTimeFilled /> : <FaFaceDizzy />;
-
+const Skeleton = ({ el: { company, position, status, jobType, jobLocation, createAt, id }, wrapperRef, params }) => {
   return (
     <Wrapper>
       <div className="top">
-        <div className={`icon ${status}`}>{icon} </div>
+        <div className={`icon ${status}`}>{<AiOutlineLoading3Quarters />} </div>
         <div>
           <h3 className="position">{position}</h3>
           <p className="company">{company}</p>
@@ -34,7 +21,7 @@ const SingleJob = ({ el: { company, position, status, jobType, jobLocation, crea
         </div>
         <div className="date">
           <BsCalendar2CheckFill />
-          <span>{convertSecondsToDate(createAt)} </span>
+          <span>{createAt} </span>
         </div>
         <div className="type">
           <MdWorkHistory />
@@ -42,15 +29,9 @@ const SingleJob = ({ el: { company, position, status, jobType, jobLocation, crea
         </div>
         <div className={`status ${status}`}>{status} </div>
         <div className="buttons">
-          <button className="edit btn">
-            <Link to="/new-job" state={{ company, position, status, jobType, jobLocation, id }}>
-              <IoMdSettings />
-            </Link>
-          </button>
+          <button className="edit btn"></button>
 
-          <button onClick={onDeleteClick} className=" delete btn">
-            <AiFillDelete />
-          </button>
+          <button className=" delete btn"></button>
         </div>
       </div>
     </Wrapper>
@@ -78,15 +59,7 @@ const Wrapper = styled.div`
       font-size: 34px;
       line-height: 42px;
       flex-shrink: 0;
-    }
-    .icon.pending {
-      background-color: var(--pending-color-1);
-    }
-    .icon.declined {
-      background-color: var(--declined-color-1);
-    }
-    .icon.interview {
-      background-color: var(--interview-color-1);
+      background-color: var(--primary-color);
     }
 
     > div {
@@ -112,30 +85,11 @@ const Wrapper = styled.div`
   }
   .bottom {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
     padding: 16px 20px;
     border-top: solid 1px var(--background-color-4);
   }
-
-  @media (min-width: 576px) {
-    .bottom {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  @media (min-width: 992px) {
-    .bottom {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (min-width: 1120px) {
-    .bottom {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
   .location,
   .date,
   .type {
@@ -163,18 +117,7 @@ const Wrapper = styled.div`
     padding: 2px 17px;
     border-radius: var(--radius);
   }
-  .status.pending {
-    background-color: var(--pending-color-2);
-    color: var(--pending-color-1);
-  }
-  .status.declined {
-    background-color: var(--declined-color-2);
-    color: var(--declined-color-1);
-  }
-  .status.interview {
-    background-color: var(--interview-color-2);
-    color: var(--interview-color-1);
-  }
+
   .buttons {
     display: flex;
     gap: 20px;
@@ -200,13 +143,6 @@ const Wrapper = styled.div`
       font-size: 18px;
     }
   }
-  a {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-  }
 `;
 
-export default SingleJob;
+export default Skeleton;

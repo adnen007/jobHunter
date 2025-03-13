@@ -7,11 +7,12 @@ import Logo from "./Logo";
 
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { logout } from "../features/user/userAsync";
 
 const Header = ({ toggleSideBar }) => {
-  const navigate = useNavigate();
+  const Dispatch = useDispatch();
+
+  const [dropLogout, setDropLogout] = useState(false);
 
   const userName = useSelector((state) => {
     return state.user.userInfo.name;
@@ -21,14 +22,12 @@ const Header = ({ toggleSideBar }) => {
     return state.user.isLoading;
   });
 
-  const [dropLogout, setDropLogout] = useState(false);
-  const Dispatch = useDispatch();
   const toggleLogout = () => {
     setDropLogout(!dropLogout);
   };
 
   const onLogoutClick = () => {
-    Dispatch(logout({ navigate }));
+    Dispatch(logout());
   };
 
   return (
@@ -69,6 +68,7 @@ const Wrapper = styled.header`
 
     .logo {
       width: 100px;
+      display: none;
       img {
         max-width: 100%;
       }

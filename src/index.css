@@ -7,7 +7,7 @@ Variables
 :root {
   /* background colors*/
   /* --background-color-1: #f0f4f8;  */
-  --background-color-1: #f8fafc;
+  --background-color-1: #f1f4f9;
 
   --background-color-2: #ffeeee;
   --background-color-3: #fcefc7;
@@ -70,6 +70,7 @@ Global Styles
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: "cabin", "Roboto Condensed", sans-serif;
   background: var(--background-color-1);
@@ -123,8 +124,8 @@ h6 {
 /* containers */
 .container {
   width: 100%;
-  padding-right: 30px;
-  padding-left: 30px;
+  padding-right: 20px;
+  padding-left: 20px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -132,6 +133,8 @@ h6 {
 @media (min-width: 576px) {
   .container {
     max-width: 540px;
+    padding-right: 30px;
+    padding-left: 30px;
   }
 }
 
@@ -150,9 +153,15 @@ h6 {
 @media (min-width: 1200px) {
   .container {
     max-width: 1140px;
-    /* padding: 0px 10px; */
   }
 }
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
 /* buttons */
 
 .btn {
@@ -189,5 +198,5 @@ h6 {
   min-height: 100vh;
 }
 .page-no-h {
-  height: calc(100vh - 100px);
+  height: 100vh;
 }

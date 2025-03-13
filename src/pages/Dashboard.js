@@ -39,6 +39,7 @@ const Dashboard = () => {
 
 const Wrapper = styled.section`
   display: flex;
+
   > .content {
     flex-grow: 1;
   }
@@ -49,7 +50,7 @@ const Wrapper = styled.section`
     width: 100%;
     height: 100%;
     background-color: #000000b0;
-    padding: 10px 20px;
+    padding: 45px 20px;
     gap: 15px;
     opacity: 0;
     visibility: hidden;

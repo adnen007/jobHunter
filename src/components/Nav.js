@@ -40,8 +40,8 @@ const Wrapper = styled.nav`
   justify-content: center;
   .close {
     position: absolute;
-    top: 15px;
-    left: 20px;
+    top: 17px;
+    left: 17px;
     cursor: pointer;
     svg {
       font-size: 23px;
@@ -78,6 +78,20 @@ const Wrapper = styled.nav`
       }
     }
   }
+
+  @media (max-width: 576px) {
+    li {
+      width: 120px;
+      a {
+        gap: 24px;
+        font-size: 18px;
+        svg {
+          font-size: 30px;
+        }
+      }
+    }
+  }
+
   li:hover a,
   li.active a {
     color: var(--primary-color);

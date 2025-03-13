@@ -14,6 +14,8 @@ const Wrapper = styled.div`
   margin: auto;
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 50vh;
   .loading {
     width: 100px;
     height: 100px;

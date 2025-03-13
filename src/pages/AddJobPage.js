@@ -10,6 +10,8 @@ const AddJobPage = () => {
     return state.jobs.isLoading;
   });
 
+  const { state: locationState } = useLocation();
+
   let initialState = {
     position: "",
     company: "",
@@ -18,26 +20,18 @@ const AddJobPage = () => {
     status: "interview",
   };
 
-  const { state: locationState } = useLocation();
-
-  if (locationState) {
-    initialState = locationState;
-  }
+  if (locationState) initialState = locationState;
 
   const [params, setParams] = useState(initialState);
-
   const dispatch = useDispatch();
 
   const onformChange = (e) => {
-    const id = e.target.id;
-    const value = e.target.value;
-
+    const { id, value } = e.target;
     setParams({ ...params, [id]: value });
   };
 
   const onSubmitClick = (e) => {
     e.preventDefault();
-
     const values = Object.values(params);
 
     if (values.includes("")) {
@@ -49,24 +43,12 @@ const AddJobPage = () => {
       dispatch(editJob({ ...params }));
     } else {
       dispatch(addJob(params));
-      setParams({
-        position: "",
-        company: "",
-        jobLocation: "",
-        jobType: "full-time",
-        status: "interview",
-      });
+      setParams(initialState);
     }
   };
 
   const onClearClick = () => {
-    setParams({
-      position: "",
-      company: "",
-      jobLocation: "",
-      jobType: "full-time",
-      status: "interview",
-    });
+    setParams(initialState);
   };
 
   return (
@@ -144,6 +126,7 @@ const Wrappper = styled.section`
 
   form {
     background-color: var(--white);
+    box-shadow: var(--light-shadow);
     border-radius: var(--radius);
     padding: 50px 30px;
   }

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const LoadingPage = () => {
   return (
-    <Wrapper>
+    <Wrapper className="page">
       <div className="spinner" />
       <p className="loading-text">Loading, please wait...</p>
     </Wrapper>
@@ -15,7 +15,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+
+  width: 100vw;
   background-color: var(--background-color-1);
   color: var(--text-color-6);
   font-family: "cabin", "Roboto Condensed", sans-serif;

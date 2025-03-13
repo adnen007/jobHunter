@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { userActions } from "./features/user/userSlice";
+import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
+import { userActions } from "./features/user/userSlice";
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { ToastContainer } from "react-toastify";
-import { BrowserRouter } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   LandingPage,
@@ -18,12 +19,12 @@ import {
   Dashboard,
   ProfilePage,
 } from "./pages";
-import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // Listen for authentication state changes (user login/logout)
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(userActions.userAuthentication(true));
@@ -36,7 +37,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="App">
+    <div className="app">
       <BrowserRouter>
         <Routes>
           <Route path="/landing" element={<LandingPage />} />

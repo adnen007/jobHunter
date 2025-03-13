@@ -1,33 +1,36 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAllJobs } from "../features/jobs/jobsAsync";
+import { useSelector } from "react-redux";
 
-const Pagination = ({ params, currentPage, setCurrentPage }) => {
-  const dispatch = useDispatch();
-
+const Pagination = ({ params, setParams, wrapperRef }) => {
   const totalPages = useSelector((state) => {
     return state.jobs.totalPages;
   });
 
   const onPrev = () => {
-    setCurrentPage(currentPage - 1);
-    dispatch(fetchAllJobs({ ...params, pageMovement: "prev" }));
+    setParams({ ...params, currentPage: params.currentPage - 1, pageMovement: "prev" });
+    wrapperRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
   const onNext = () => {
-    setCurrentPage(currentPage + 1);
-    dispatch(fetchAllJobs({ ...params, pageMovement: "next" }));
+    setParams({ ...params, currentPage: params.currentPage + 1, pageMovement: "next" });
+    wrapperRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
   return (
     <Wrapper>
-      <button className="prev" onClick={onPrev} disabled={currentPage === 1}>
+      <button className="prev" onClick={onPrev} disabled={params.currentPage === 1}>
         <span className="arrowIcon">&lt;</span> Prev
       </button>
       <span className="pageInfo">
-        {currentPage} / {totalPages}
+        {params.currentPage} / {totalPages}
       </span>
-      <button className="next" onClick={onNext} disabled={currentPage === totalPages}>
+      <button className="next" onClick={onNext} disabled={params.currentPage >= totalPages}>
         Next <span className="arrowIcon">&gt;</span>
       </button>
     </Wrapper>
