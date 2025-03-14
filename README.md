@@ -8,4 +8,4 @@ I'm sure all the job hunters will love it :) .
 
 ## Try It
 
-[jobHunter](https://)
+[jobHunter](https://myjobhunter.netlify.app)
